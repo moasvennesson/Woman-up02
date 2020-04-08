@@ -1,0 +1,167 @@
+/*
+body {
+
+    background-image: url("received_204811730940040.jpeg");
+    background-repeat: no-repeat,
+    background-position: center; 
+    background-size: cover;
+}
+*/
+#wrapper {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+
+}
+
+#registering {
+    padding: 10px;
+}
+
+.jumbotron {
+    background-color: #ffff;
+}
+
+#chatt-box {
+    padding-top: 10%;
+    width: 50%;
+    justify-content: center;
+}
+
+
+#logo{
+    font-family: 'Caveat', cursive;
+    height: 100px;
+    padding: 2px;
+    text-align: left;
+    font-size: 3em;
+}
+
+ /* Chatt rutor */
+ .chat-container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  /* Mörkare chatt rutor */
+  .darker {
+    border-color: #ccc;
+    background-color: #ddd;
+  }
+  
+  /* Tar bort floats */
+  .chat-container::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  /* Bilder */
+  .chat-container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+  }
+  
+  /* bilder till höger */
+  .chat-container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+  }
+  
+  /* tid texten*/
+  .time-right {
+    float: right;
+    color: #aaa;
+  }
+  
+  /* tid texten till höger */
+  .time-left {
+    float: left;
+    color: #999;
+  } 
+
+
+.form-group {
+    display: block;
+
+    height: 80px;
+    padding: 5px; 
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.box {
+    box-sizing: border-box;
+    max-width: 320px;
+    box-shadow: 0 0 10px #333333;
+    padding:10px;
+    margin-top: 10%;
+    z-index: 2;
+    position: fixed;
+    margin-left: 37%;
+    background-color: white;
+}
+
+.länkar {
+    padding: 5px;
+}
+
+#kontakt {
+    margin-left: 100px;
+}
+
+img{
+    max-height: 600px;
+    max-width: 600px;
+    margin-left: 40px;
+    z-index: 1;
+    position: fixed;
+    margin-top: 5%;
+
+}
+/*
+img{
+    max-height: 450px;
+    max-width: 500px;
+    margin-left: 250px;
+    z-index: 1;
+    position: relative;
+    margin-top: 12%;
+}*/
+
+@media only screen and (max-width: 980px) {
+    #chatt-box{
+       
+        min-width:100%; 
+        display: inline-block;}
+    
+    #profil-knapp{
+        width: 40%;
+        margin-left: 30%;
+        margin-right: 30%;
+
+    }
+  }
+
+
+@media only screen and (max-width: 750px) {
+    
+    .box {
+        justify-content: center;
+        display: inline-block;
+        margin-left: 9%;
+        min-width: 70%;
+        margin-top: 35%;
+        
+    }
+
+    
+}
