@@ -64,3 +64,64 @@ img{
     
 }
 
+/* CSS till startpage*/
+#Chatt, #Karta, #Nödrop{
+    border: 1px solid black;
+    padding: 20px 50px 20px 50px;
+    text-align: center;
+    font-size: 50px;
+    box-shadow: 3px 2px rgb(199, 199, 199);
+}
+
+a{
+    text-decoration: none;
+}
+
+#Nödrop{
+    padding:20px 30px 20px 30px;
+}
+
+#Chatt{
+    padding: 20px 52px 20px 52px;
+}
+
+#pNödrop, #pChatt, #pKarta {
+    margin: 70px;
+    text-align: center;
+}
+
+/*CSS till nödrops sidan*/
+#Rubrik{
+    font-size: 30px;
+    text-align: center;
+}
+
+#Val{
+    text-align: center;
+    margin:55px 150px 10px;
+    padding: 0px 350px;
+}
+
+#Help1,#Help2,#Help3{
+    border: 1px solid black;
+    padding: 10px;
+    margin:2px;
+}
+
+#Htext{
+    text-align: center;
+}
+
+#Send{
+    text-align: center;
+}
+
+/*CSS till karta */
+#mapid{
+    height: 500px; 
+    width: 500px;
+    margin: auto;
+    
+
+}
+
