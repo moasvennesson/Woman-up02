@@ -5,3 +5,5 @@ from datetime import datetime, date
 def show_homepage():
     ''' Hemsidan '''
     return template("index")
+
+run(host='localhost', port=8080, debug=True, reloader=True)
