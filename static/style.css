@@ -50,6 +50,20 @@ img{
     padding-left: 14px;
 }
 
+@media only screen and (max-width: 980px) {
+    #chatt-box{
+       
+        min-width:100%; 
+        display: inline-block;}
+    
+    #profil-knapp{
+        width: 40%;
+        margin-left: 30%;
+        margin-right: 30%;
+
+    }
+  }
+
 @media only screen and (max-width: 750px) {
     
     .box {
@@ -124,4 +138,70 @@ a{
     
 
 }
+
+#wrapper {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#registering {
+    padding: 10px;
+}
+
+#chatt-box {
+    padding-top: 10%;
+    width: 50%;
+    justify-content: center;
+}
+
+ /* Chatt rutor */
+ .chat-container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  /* Mörkare chatt rutor */
+  .darker {
+    border-color: #ccc;
+    background-color: #ddd;
+  }
+  
+  /* Tar bort floats */
+  .chat-container::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  /* Bilder */
+  .chat-container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+  }
+  
+  /* bilder till höger */
+  .chat-container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+  }
+  
+  /* tid texten*/
+  .time-right {
+    float: right;
+    color: #aaa;
+  }
+  
+  /* tid texten till höger */
+  .time-left {
+    float: left;
+    color: #999;
+  } 
 
