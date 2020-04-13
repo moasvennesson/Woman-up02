@@ -9,8 +9,9 @@ create table user(
     pnr int,
     first_name text,
     last_name text,
+    tel_num int,
     password varchar(20) ,
-    tel_num int,
+    email text,
     
     primary key (pnr)
 );

@@ -18,16 +18,16 @@
             <h1>Skapa en profil</h1>
             <div class="form-row">
                 <div class="col-md-4 mb-3">
-                    <label for="förnamn">Förnamn</label>
-                    <input type="text" class="form-control" id="förnamn">
+                    <label for="firstname">Förnamn</label>
+                    <input type="text" class="form-control" id="firstname" required>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label for="efternamn">Efternamn</label>
-                    <input type="text" class="form-control" id="efternamn">
+                    <label for="lastname">Efternamn</label>
+                    <input type="text" class="form-control" id="lastname" required>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label for="validationDefault03">Telefonnummer</label>
-                    <input type="text" class="form-control" id="telefonnummer">
+                    <label for="phonenumber">Telefonnummer</label>
+                    <input type="text" class="form-control" id="phonenumber" required>
                 </div>
             </div>
             <h2>Födelsedatum</h2>
@@ -117,19 +117,15 @@
             </div>
             <div class="form-row">
                 <div class="col-md-4 mb-3">
-                    <label for="användarnamn">Användarnamn</label>
-                    <input type="text" class="form-control" id="användarnamn">
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="lösenord">Lösenord</label>
-                    <input type="password" class="form-control" id="lösenord" aria-describedby="passwordHelpBlock">
+                    <label for="password">Lösenord</label>
+                    <input type="password" class="form-control" id="password" aria-describedby="passwordHelpBlock" required>
                     <small id="passwordHelpBlock" class="form-text text-muted">
                         Din lösenord måste vara mellan 8-20 karaktärer långt och innehålla båda bokstäver och siffror
                       </small>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email">
+                    <input type="email" class="form-control" id="email" required>
                     <small id="emailHelp" class="form-text text-muted">Vi delar inte din email med någon.</small>
                 </div>
             </div>
