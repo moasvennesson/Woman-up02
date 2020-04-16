@@ -1,5 +1,6 @@
 from bottle import route, run, template, request, redirect, error, static_file, TEMPLATE_PATH
 from datetime import datetime, date
+import sqlite3
 import os     
 abs_app_dir_path = os.path.dirname(os.path.realpath(__file__))
 abs_views_path = os.path.join(abs_app_dir_path, 'views')

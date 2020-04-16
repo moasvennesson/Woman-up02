@@ -13,7 +13,7 @@
 
 <body>
     <div class="box">
-        <form>
+        <form action="/" method="POST">
             <div class="form-group">
                 <label for="email">Epost</label>
                 <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
@@ -24,7 +24,8 @@
                 <label for="password">Lösenord</label>
                 <input type="password" class="form-control" id="password">
             </div>
-            <button type="button" class="btn btn-secondary btn-lg btn-block">Logga in</button>
+            <input type="submit" value="Login">
+            <p>{{msg}}</p>
         </form>
         <div class="länkar">
             <a href="/register">Skapa konto</a>
