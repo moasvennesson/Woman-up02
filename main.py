@@ -11,13 +11,13 @@ TEMPLATE_PATH.insert(0, abs_views_path )
 def server_static(filename):
     return static_file(filename, root=abs_static_path)
 
-@route("/", methods=["GET","POST"])
+@route("/", method="POST")
 def login():
     ''' Loginsidan'''
     msg = ""
     if request.method == "POST" and "email" in request.forms and "password" in request.forms:
-        email = request.forms.get("email")
-        password = request.forms.get("password")
+        email = getattr(request.forms, "email")
+        password = getattr(request.forms, "password")
         with sqlite3.connect("woman-up.db") as db:
             cursor = db.cursor()
         find_user = ("SELECT * FROM user WHERE email = ? and password = ?")
@@ -30,15 +30,15 @@ def login():
                
     return template("index", msg = msg)
 
-@route("/register", methods=["GET","POST"])
+@route("/register", method="POST")
 def register():
     msg =""
     if request.method == "POST" and "email" in request.forms and "password" in requst.forms and "firstname" in request.forms and "lastname" in request.forms and "phonenumber" in request.forms:
-        firstname = request.forms.get("firstname")
-        lastname = request.forms.get("lastname")
-        phonenumber = request.forms.get("phonenumber")
-        password = request.forms.get("password")
-        email = requst.forms.get("email")
+        firstname = getattr(request.forms, "firstname")
+        lastname = getattr(request.forms, "lastname")
+        phonenumber = getattr(request.forms, "phonenumber")
+        password = getattr(request.forms, "password")
+        email = getattr(request.forms, "email")
         with sqlite3.connect("woman-up.db") as db:
             cursor =db.cursor()
         cursor.execute("SELECT * FROM user WHERE email = ?",(email))
