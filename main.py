@@ -1,4 +1,4 @@
-from bottle import route, run, template, request, redirect, error, static_file, TEMPLATE_PATH
+from bottle import route, run, template, request, redirect, error, static_file, TEMPLATE_PATH, get, post
 from datetime import datetime, date
 import sqlite3
 import os
@@ -13,49 +13,63 @@ def server_static(filename):
     return static_file(filename, root=abs_static_path)
 
 
-@route("/", method="POST")
+@route("/startpage")
+def startpage():
+    return template("startpage")
+
+@get("/")
+def login_page():
+       return template("index", msg="")
+
+@post("/")
 def login():
     ''' Loginsidan'''
     msg = ""
-    if request.method == "POST" and "email" in request.forms and "password" in request.forms:
-        email = getattr(request.forms, "email")
-        password = getattr(request.forms, "password")
+    if  "email" in request.forms and "password" in request.forms:
+        email = request.forms.get("email")
+        password = request.forms.get("password")
         with sqlite3.connect("woman-up.db") as db:
             cursor = db.cursor()
         find_user = ("SELECT * FROM user WHERE email = ? and password = ?")
         cursor.execute(find_user, [(email), (password)])
-        account = cursor.fetchone()
+        account = cursor.fetchall()
         if account:
-            msg = "Inloggningen lyckades!"
-        else:
-            msg = "Inkorrekt email eller lösenord"
+            redirect("/startpage")
+    else:
+        msg = "Inkorrekt email eller lösenord"
 
     return template("index", msg=msg)
 
+@get("/register")
+def register_page():
+        return template("register", msg="")
 
-@route("/register", method="POST")
+@post("/register")
 def register():
     msg = ""
-    if request.method == "POST" and "email" in request.forms and "password" in requst.forms and "firstname" in request.forms and "lastname" in request.forms and "phonenumber" in request.forms:
-        firstname = getattr(request.forms, "firstname")
-        lastname = getattr(request.forms, "lastname")
-        phonenumber = getattr(request.forms, "phonenumber")
-        password = getattr(request.forms, "password")
-        email = getattr(request.forms, "email")
+    if  "email" in request.forms and "password" in requst.forms and "firstname" in request.forms and "lastname" in request.forms and "phonenumber" in request.forms:
+        firstname = request.forms.get("firstname")
+        lastname = request.forms.get("lastname")
+        phonenumber = request.forms.get("phonenumber")
+        password = request.forms.get("password")
+        email = request.forms.get("email")
         with sqlite3.connect("woman-up.db") as db:
             cursor = db.cursor()
-        cursor.execute("SELECT * FROM user WHERE email = ?", (email))
-        account = cursor.fetchone()
-        if account:
+        find_user = ("SELECT * FROM user WHERE email =?")
+        cursor.execute(find_user[(email)])
+
+        if cursor.fetchall():
             msg = "Den email adressen är reddan registrerad"
         # elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             #msg = "Felaktig email adress"
         elif not username or not password or not email:
             msg = "Vänligen uppge all uppgifter"
         else:
-            cursor.execute(
-                insertData, [(firstname), (lastname), (phonenumber), (password), (email)])
+            insertdata ='''INSERT INTO user (first_name, last_name, tel_num, password, email)
+            VALUES(?,?,?,?,?)'''
+            cursor.execute(insertdata[(firstname),(lastname),(phonenumber),(password),(email)])
             db.commit()
+            redirect("/")
     else:
         msg = "Vänligen fyll i formuläret"
 
