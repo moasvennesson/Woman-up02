@@ -26,12 +26,12 @@ def login():
     ''' Loginsidan'''
     msg = ""
     if  "email" in request.forms and "password" in request.forms:
-        email = request.forms.get("email")
-        password = request.forms.get("password")
+        email = getattr(request.forms, "email")
+        password = getattr(request.forms, "password")
         with sqlite3.connect("woman-up.db") as db:
             cursor = db.cursor()
         find_user = ("SELECT * FROM user WHERE email = ? and password = ?")
-        cursor.execute(find_user, [(email), (password)])
+        cursor.execute(find_user, (email,), (password,))
         account = cursor.fetchall()
         if account:
             redirect("/startpage")
@@ -47,31 +47,32 @@ def register_page():
 @post("/register")
 def register():
     msg = ""
-    if  "email" in request.forms and "password" in requst.forms and "firstname" in request.forms and "lastname" in request.forms and "phonenumber" in request.forms:
-        firstname = request.forms.get("firstname")
-        lastname = request.forms.get("lastname")
-        phonenumber = request.forms.get("phonenumber")
-        password = request.forms.get("password")
-        email = request.forms.get("email")
-        with sqlite3.connect("woman-up.db") as db:
-            cursor = db.cursor()
-        find_user = ("SELECT * FROM user WHERE email =?")
-        cursor.execute(find_user[(email)])
-
-        if cursor.fetchall():
+    found = 0
+    firstname = getattr(request.forms, "firstname")
+    lastname = getattr(request.forms, "lastname")
+    phonenumber = getattr(request.forms, "phonenumber")
+    password = getattr(request.forms, "password")
+    email = getattr(request.forms, "email")
+    conn = sqlite3.connect("woman-up.db")
+    c = conn.cursor()
+    '''
+    while found == 0:
+        conn = sqlite3.connect("woman-up.db")
+        c = conn.cursor()
+        c.execute("SELECT * FROM user WHERE email = ?", (email,))
+        account = c.fetchall()
+        if account():
             msg = "Den email adressen är reddan registrerad"
         # elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             #msg = "Felaktig email adress"
         elif not username or not password or not email:
             msg = "Vänligen uppge all uppgifter"
         else:
-            insertdata ='''INSERT INTO user (first_name, last_name, tel_num, password, email)
-            VALUES(?,?,?,?,?)'''
-            cursor.execute(insertdata[(firstname),(lastname),(phonenumber),(password),(email)])
-            db.commit()
-            redirect("/")
-    else:
-        msg = "Vänligen fyll i formuläret"
+            found + 1 
+    '''
+    c.execute("INSERT INTO user VALUES(?,?,?,?,?)",(firstname, lastname, phonenumber, password, email))
+    conn.commit()
+    redirect("/")
 
     return template("register", msg=msg)
 
