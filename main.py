@@ -17,24 +17,25 @@ def server_static(filename):
 def startpage():
     return template("startpage")
 
+
 @get("/")
 def login_page():
        return template("index", msg="")
+
 
 @post("/")
 def login():
     ''' Loginsidan'''
     msg = ""
-    if  "email" in request.forms and "password" in request.forms:
-        email = getattr(request.forms, "email")
-        password = getattr(request.forms, "password")
-        with sqlite3.connect("woman-up.db") as db:
-            cursor = db.cursor()
-        find_user = ("SELECT * FROM user WHERE email = ? and password = ?")
-        cursor.execute(find_user, (email,), (password,))
-        account = cursor.fetchall()
-        if account:
-            redirect("/startpage")
+   
+    email = getattr(request.forms, "email")
+    password = getattr(request.forms, "password")
+    conn = sqlite3.connect("woman-up.db")
+    c = conn.cursor()
+    #find_user = ("SELECT * FROM user WHERE email = ? and password = ?")
+    c.execute("SELECT * FROM user WHERE email = ? and password = ?",(email, password))
+    if c.fetchone():
+        redirect("/startpage") 
     else:
         msg = "Inkorrekt email eller lösenord"
 
@@ -43,6 +44,7 @@ def login():
 @get("/register")
 def register_page():
         return template("register", msg="")
+
 
 @post("/register")
 def register():

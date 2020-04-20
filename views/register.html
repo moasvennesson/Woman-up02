@@ -14,20 +14,20 @@
 
 <body id="register">
     <div id="wrapper">
-        <form action="" method="POST" id="registering">
+        <form action="/register" method="POST" id="registering">
             <h1>Skapa en profil</h1>
             <div class="form-row">
                 <div class="col-md-4 mb-3">
                     <label for="firstname">Förnamn</label>
-                    <input type="text" class="form-control" id="firstname" required>
+                    <input type="text" class="form-control" id="firstname" name="firstname" required>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="lastname">Efternamn</label>
-                    <input type="text" class="form-control" id="lastname" required>
+                    <input type="text" class="form-control" id="lastname" name="lastname" required>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="phonenumber">Telefonnummer</label>
-                    <input type="text" class="form-control" id="phonenumber" required>
+                    <input type="text" class="form-control" id="phonenumber" name="phonenumber" required>
                 </div>
             </div>
             <h2>Födelsedatum</h2>
@@ -118,7 +118,7 @@
             <div class="form-row">
                 <div class="col-md-4 mb-3">
                     <label for="password">Lösenord</label>
-                    <input type="password" class="form-control" id="password" aria-describedby="passwordHelpBlock"
+                    <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelpBlock"
                         required>
                     <small id="passwordHelpBlock" class="form-text text-muted">
                         Din lösenord måste vara mellan 8-20 karaktärer långt och innehålla båda bokstäver och siffror
@@ -126,7 +126,7 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" required>
+                    <input type="email" class="form-control" id="email" name="email" required>
                     <small id="emailHelp" class="form-text text-muted">Vi delar inte din email med någon.</small>
                 </div>
             </div>
