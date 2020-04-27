@@ -79,4 +79,29 @@ def register():
     return template("register", msg=msg)
 
 
+
+
+@route('/map')
+def map():
+    inloggad = "234444433" ##den som är inloggad
+    location=[] #alla som ska skrivas ut på kartan sparas här
+    cursor.execute("select first_name,long,lat,offset from user where pnr != " +inloggad)
+    for x in cursor:
+        location.append(x)
+    print(location)
+
+    return template('map',location=location)   
+
+@route('/save_L', method="POST")
+def save_L():
+    inloggad = "234444433" ### den som är inloggad
+
+    all_location = getattr(request.forms, "spara_plats") ## ser ut long,lat,offset
+    list_location = all_location.split(",") ##delar upp i array
+    print(list_location)
+    sql = "UPDATE user SET long ="+list_location[0]  +", lat =" + list_location[1]+ ", offset = "+list_location[2]+ " WHERE pnr = "+ inloggad
+    cursor.execute(sql)
+    redirect('map')
+
+
 run(host='localhost', port=8080, debug=True, reloader=True)

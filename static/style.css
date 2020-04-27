@@ -194,6 +194,15 @@ a{
 
 }
 
+#SendName,#SendLat,#SendLong,#SendOffset{
+  display:none;
+}
+
+
+
+
+
+
 #wrapper {
     margin: 0;
     width: 100%;

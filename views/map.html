@@ -9,48 +9,68 @@
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
         <link href="style.css"rel="stylesheet" type="text/css">
+        <link href="https://api.mapbox.com/maxbox-gl-js/v0.38.0/mapbox-gl.css" rel='stylesheet'/>
+
     </head>
    
     <body>
-        <div id="mapid"></div>
+        <form action="/save_L" method="POST"> 
+            <input type="text" namn ="spara_plats" id="spara_plats" value="">
+            <button input="" type="submit"> Spara din plats</button> 
+        </form>
+    
+
+        <p id = "SendName">
+        % for user in location:
+        {{str(user[0])+","}}
+        % end
+        </p> 
+        <p id = "SendLat">
+        % for user in location:
+        {{str(user[1])+","}}
+        % end
+        </p> 
+        <p id = "SendLong">
+        % for user in location:
+        {{str(user[3])+","}}
+        % end
+        </p>
+        <p id = "SendOffset">
+        % for user in location:
+        {{str(user[3])+","}}
+        % end
+        </p>
+        
+        <p id = "DinPlats">
+
+        </p>
+        <div id ="mapid"></div>
+        <script type="text/javascript" src="leaflet.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
 
         <script>
-            getLocation()
-            var x = document.getElementById("demo");
-            var latitude;
-            var longitude;
-            
-            function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else { 
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-            }
-
-            function showPosition(position) {
-                latitude = position.coords.latitude;
-                longitude = position.coords.longitude;
-                getMap();
-            }
-            function getMap(){
-            var mymap = L.map('mapid').setView([latitude, longitude], 13);
-            //hämtar kartan
-            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                maxZoom: 18,
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                id: 'mapbox/streets-v11',
-                tileSize: 512,
-                zoomOffset: -1
-            }).addTo(mymap);
-
-
-            L.marker([latitude,longitude]).addTo(mymap).bindPopup("Din position").openPopup();
-            }
-
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBUaqbXxFEm7w6pyImP7tqCO02F3oXbwJc",
+            authDomain: "woman-up-4b001.firebaseapp.com",
+            databaseURL: "https://woman-up-4b001.firebaseio.com",
+            projectId: "woman-up-4b001",
+            storageBucket: "woman-up-4b001.appspot.com",
+            messagingSenderId: "430953175708",
+            appId: "1:430953175708:web:ed6c17905a420590f46b59",
+            measurementId: "G-YS1V9N0VQK"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
         </script>
+            
+        
     </body>
 
 </html>
