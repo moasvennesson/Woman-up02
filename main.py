@@ -78,5 +78,9 @@ def register():
 
     return template("register", msg=msg)
 
+@route("/FullPrivacyPolicy")
+def popup():
+    return template("FullPrivacyPolicy")
+
 
 run(host='localhost', port=8080, debug=True, reloader=True)
