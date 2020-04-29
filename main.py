@@ -78,6 +78,10 @@ def register():
 
     return template("register", msg=msg)
 
+@route("/FullPrivacyPolicy")
+def popup():
+    return template("FullPrivacyPolicy")
+
 
 
 
