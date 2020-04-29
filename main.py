@@ -41,48 +41,40 @@ def login():
 
     return template("index", msg=msg)
 
+
 @get("/register")
 def register_page():
         return template("register", msg="")
 
 
-@post("/register")
+@post('/register')
 def register():
     msg = ""
-    found = 0
-    firstname = getattr(request.forms, "firstname")
-    lastname = getattr(request.forms, "lastname")
-    phonenumber = getattr(request.forms, "phonenumber")
-    password = getattr(request.forms, "password")
-    email = getattr(request.forms, "email")
-    conn = sqlite3.connect("woman-up.db")
+    firstname = getattr(request.forms, 'firstname')
+    lastname = getattr(request.forms, 'lastname')
+    phonenumber = getattr(request.forms, 'phonenumber')
+    password = getattr(request.forms, 'password')
+    email = getattr(request.forms, 'email')
+    conn = sqlite3.connect('woman-up.db')
     c = conn.cursor()
-    '''
-    while found == 0:
-        conn = sqlite3.connect("woman-up.db")
-        c = conn.cursor()
-        c.execute("SELECT * FROM user WHERE email = ?", (email,))
-        account = c.fetchall()
-        if account():
-            msg = "Den email adressen är reddan registrerad"
-        # elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-            #msg = "Felaktig email adress"
-        elif not username or not password or not email:
-            msg = "Vänligen uppge all uppgifter"
-        else:
-            found + 1 
-    '''
-    c.execute("INSERT INTO user VALUES(?,?,?,?,?)",(firstname, lastname, phonenumber, password, email))
-    conn.commit()
-    redirect("/")
+  
+    c.execute('SELECT * FROM user WHERE email = ?', (email,))
+    if c.fetchone():
+         msg = "Den email adressen är reddan registrerad"
+    elif not password or not email:
+         msg = "Vänligen uppge all uppgifter"
+    else:
+        c.execute('INSERT INTO user VALUES(?,?,?,?,?)',(firstname, lastname, phonenumber, password, email))
+        conn.commit()
+        redirect('/')
 
-    return template("register", msg=msg)
+
+    return template('register', msg=msg)
+
 
 @route("/FullPrivacyPolicy")
 def popup():
     return template("FullPrivacyPolicy")
-
-
 
 
 @route('/map')
