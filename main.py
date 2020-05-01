@@ -64,7 +64,7 @@ def register():
     elif not password or not email:
          msg = "Vänligen uppge all uppgifter"
     else:
-        c.execute('INSERT INTO user VALUES(?,?,?,?,?)',(firstname, lastname, phonenumber, password, email))
+        c.execute('INSERT INTO user VALUES(?,?,?,?,?,?,?,?)',(firstname, lastname, phonenumber, password, email, 0, 0, 0))
         conn.commit()
         redirect('/')
 
@@ -79,17 +79,22 @@ def popup():
 
 @route('/map')
 def map():
+    conn = sqlite3.connect("woman-up.db")
+    cursor= conn.cursor()
     inloggad = "234444433" ##den som är inloggad
     location=[] #alla som ska skrivas ut på kartan sparas här
     cursor.execute("select first_name,long,lat,offset from user where pnr != " +inloggad)
     for x in cursor:
         location.append(x)
     print(location)
+    conn.commit()
 
     return template('map',location=location)   
 
 @route('/save_L', method="POST")
 def save_L():
+    conn = sqlite3.connect("woman-up.db")
+    cursor= conn.cursor()
     inloggad = "234444433" ### den som är inloggad
 
     all_location = getattr(request.forms, "spara_plats") ## ser ut long,lat,offset
@@ -97,6 +102,7 @@ def save_L():
     print(list_location)
     sql = "UPDATE user SET long ="+list_location[0]  +", lat =" + list_location[1]+ ", offset = "+list_location[2]+ " WHERE pnr = "+ inloggad
     cursor.execute(sql)
+    conn.commit()
     redirect('map')
 
 
