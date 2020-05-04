@@ -8,31 +8,33 @@
         <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
-        <link href="style.css"rel="stylesheet" type="text/css">
+        <link href="/static/style.css"rel="stylesheet" type="text/css">
         <link href="https://api.mapbox.com/maxbox-gl-js/v0.38.0/mapbox-gl.css" rel='stylesheet'/>
 
     </head>
    
     <body>
-        <form action="/save_L" method="POST"> 
-            <input type="text" namn ="spara_plats" id="spara_plats" value="">
-            <button input="" type="submit"> Spara din plats</button> 
+        <form action="/map" method="POST"> 
+            <input type="text" class="form-control" id="spara_plats" name="spara_plats" required>
+            <button type="submit"> Spara din plats</button> 
         </form>
-    
+        <p id="update_loc">
+            {{klart}}
+        </p>
 
         <p id = "SendName">
         % for user in location:
         {{str(user[0])+","}}
         % end
         </p> 
-        <p id = "SendLat">
+        <p id = "SendLong">
         % for user in location:
         {{str(user[1])+","}}
         % end
         </p> 
-        <p id = "SendLong">
+        <p id = "SendLat">
         % for user in location:
-        {{str(user[3])+","}}
+        {{str(user[2])+","}}
         % end
         </p>
         <p id = "SendOffset">
@@ -45,30 +47,13 @@
 
         </p>
         <div id ="mapid"></div>
+        <script type="text/javascript" src="/static/leaflet.js"></script>
+       
+
+        </p>
+        <div id ="mapid"></div>
         <script type="text/javascript" src="leaflet.js"></script>
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
-
-        <!-- TODO: Add SDKs for Firebase products that you want to use
-            https://firebase.google.com/docs/web/setup#available-libraries -->
-        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
-
-        <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyBUaqbXxFEm7w6pyImP7tqCO02F3oXbwJc",
-            authDomain: "woman-up-4b001.firebaseapp.com",
-            databaseURL: "https://woman-up-4b001.firebaseio.com",
-            projectId: "woman-up-4b001",
-            storageBucket: "woman-up-4b001.appspot.com",
-            messagingSenderId: "430953175708",
-            appId: "1:430953175708:web:ed6c17905a420590f46b59",
-            measurementId: "G-YS1V9N0VQK"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-        </script>
+       
             
         
     </body>
