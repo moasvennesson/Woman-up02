@@ -37,6 +37,106 @@
             </div>
         </div>
 
+    <div id="demo-chat">
+        <input type="text" id="chatbox"/>
+
+        <p>users:</p>
+        <ul id="users"> </ul>
+
+        <p>chat:</p>
+        <ul id="chat"> </ul>
+
+        <button id="send">send</button>
+    </div>
+
+    <script>
+        // Ger våra användare ett unikt ID, detta kanske borde komma från servern istället
+        // i form av någon sessions variabel, såfall hade ni skickat med ID:et från python
+        // så kunde vi haft det tillgängligt istället för att skapa ett eget här
+        function generateID() {
+            return '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // När vi tar emot ett meddelande, skapa en ny <li> med datum-användarID-meddelande
+        function receivedMessage(data) {
+            let ul = document.getElementById("chat");
+            let li = document.createElement("li");
+            let date = new Date();
+            li.textContent = `[${date.toLocaleString()}][${data.userID}]: ${data.message}`;
+            ul.appendChild(li);
+        }
+
+        // Återställ användarlistan, görs när dom joinar eller lämnar
+        function resetUserList(data) {
+            // Töm alla användare
+            let ul = document.getElementById("users");
+            ul.innerHTML = "";
+
+            // Gå igenom alla användare och lägg till dom igen
+            data.users.map(function(user) {
+                let li = document.createElement("li");
+                li.textContent = user.userID;
+                ul.appendChild(li);
+            });
+        }
+
+        // Generera ett användar ID
+        let userID = generateID();
+        // Connecta till vår websocket-server
+        let websocket = new WebSocket("ws://127.0.0.1:5678/");
+
+        // När vi connectat (onopen) så skickar vi iväg att vi joinat
+        websocket.onopen = function(event) {
+            let data = { action: "joined", userID: userID };
+            console.log("[Websocket]: joined", data)
+            websocket.send(JSON.stringify(data));
+        };
+        
+        // När vi tar emot ett meddelande från servern
+        websocket.onmessage = function(event) {
+            let data = JSON.parse(event.data);
+            console.log("[Websocket]: received data", data);
+
+            // Nu kan vi bestämma hur vi ska hantera olika meddelande,
+            // ett vanligt sätt är att ange en `typ` eller `action` för 
+            // varje meddelande så vi kan delegera baserat på vad som ska
+            // göras
+
+            // Baserat på `action` så gör vi olika saker
+            if (data.action == "message") {
+                receivedMessage(data);
+            } else if (data.action == "joined") {
+                resetUserList(data);
+            } else if (data.action == "leave") {
+                resetUserList(data);
+            }
+        };
+
+        // När vi klickar på skicka knappen
+        document.getElementById("send").addEventListener("click", function() {
+            let msg = document.getElementById("chatbox").value;
+            document.getElementById("chatbox").value = "";
+
+            let data = {
+                action: "message",
+                userID: userID,
+                message: msg
+            };
+
+            console.log("[Websocket]: sending data", data);
+            websocket.send(JSON.stringify(data));
+        });
+
+        // Innan användare stänger sitt fönster (onbeforeunload) så
+        // skickar vi iväg att dom lämnar och sedan stänger vi vår
+        // connection till websocket servern
+        window.onbeforeunload = function() {
+            let data = { action: "leave", userID: userID };
+            console.log("[Websocket]: closing", data)
+            websocket.send(JSON.stringify(data));
+            websocket.close();
+        };
+    </script>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
