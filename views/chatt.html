@@ -16,39 +16,23 @@
     <div id="wrapper">
         <div class="container" id="chatt-box">
             <div class="jumbotron">
-                <h3>&larr;Doggo</h3>
+                <h3>&larr;User</h3>
                 <div class="chat-container">
-                    <img src="/static/doggo.jpg" alt="Avatar">
-                    <p>Hjälp.....</p>
-                    <span class="time-right">11:00</span>
+                    <img src="/static/doggo.jpg" alt="">
+                    <p>chat:</p>
+                    <ul id="chat"> </ul>
                 </div>
 
-                <div class="chat-container darker">
-                    <img src="/static/hero-doggo.jpg" alt="Avatar" class="right">
-                    <p>Jag kommer!</p>
-                    <span class="time-left">11:01</span>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control"  aria-describedby="button-addon2">
+                <div id="demo-chat" class="input-group mb-3">
+                    <input type="text" id="chatbox" class="form-control"  aria-describedby="button-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Skicka</button>
+                      <button id="send" class="btn btn-outline-secondary" type="button" id="button-addon2">Skicka</button>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
 
-    <div id="demo-chat">
-        <input type="text" id="chatbox"/>
-
-        <p>users:</p>
-        <ul id="users"> </ul>
-
-        <p>chat:</p>
-        <ul id="chat"> </ul>
-
-        <button id="send">send</button>
     </div>
-
     <script>
         // Ger våra användare ett unikt ID, detta kanske borde komma från servern istället
         // i form av någon sessions variabel, såfall hade ni skickat med ID:et från python
@@ -137,7 +121,6 @@
             websocket.close();
         };
     </script>
-    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
