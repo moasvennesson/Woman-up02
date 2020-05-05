@@ -17,7 +17,7 @@ def server_static(filename):
 @route("/startpage")
 def startpage():
     email = request.query.get("email")
-    return template("chatt", email = email)
+    return template("startpage", email = email)
 
 
 @route("/", method=["POST", "GET"]) 
