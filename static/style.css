@@ -105,11 +105,12 @@ img{
 #UMO {
     max-height: 60%;
     max-width: 60%;
+    margin-top: 5%;
   }
 
   #Länk_card {
     max-width: 75%;
-    max-height: 20;
+    max-height: 20%;
     margin: auto;
     box-sizing: border-box;
   }
@@ -122,6 +123,7 @@ img{
   #tjejjouren {
     max-width: 60%;
     max-height: 60%;
+    margin-top: 5%;
   }
 
   #storlänk {
@@ -131,6 +133,7 @@ img{
   #kvinnofrid {
     max-width: 60%;
     max-height: 60%;
+    margin-top: 5%;
   }
 
   .card-image.waves-effect.waves-block.waves-light {

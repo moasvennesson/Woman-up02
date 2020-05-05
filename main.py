@@ -16,7 +16,8 @@ def server_static(filename):
 
 @route("/startpage")
 def startpage():
-    return template("startpage")
+    email = request.query.get("email")
+    return template("chatt", email = email)
 
 
 @route("/", method=["POST", "GET"]) 
@@ -31,17 +32,15 @@ def login():
         c = conn.cursor()
         #find_user = ("SELECT * FROM user WHERE email = ? and password = ?")
         c.execute("SELECT * FROM user WHERE email = ? and password = ?",(email, password))
-        if c.fetchone():
+        user = c.fetchone() 
+        if user:
             inloggad = email
             print(inloggad)
-            redirect("/startpage") 
+            redirect("/startpage?email={}".format(user[4])) 
         else:
             msg = "Inkorrekt email eller lösenord"
 
     return template("index", msg=msg)
-
-
-
 
 
 @route('/register', method=["POST", "GET"])
@@ -107,10 +106,17 @@ def map():
 def emergency():
     return template('emergency')
 
+@route('/hamburgare')
+def hamburgare():
+    return template('hamburgare')
+
+@route('/PrivacyPolicy')
+def PrivacyPolicy():
+    return template('PrivacyPolicy')
 
 @route('/chatt')
 def chatt():
     return template('chatt')
 
 
-run(host='localhost', port=8083, debug=True, reloader=True)
+run(host='localhost', port=8082, debug=True, reloader=True)
