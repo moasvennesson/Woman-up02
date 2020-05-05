@@ -64,6 +64,23 @@
             });
         }
 
+        function receivedUserPosition(data) {
+            console.log(data);
+        }
+
+        function sendUserPosition(websocket, userID) {
+            navigator.geolocation.getCurrentPosition(function(position){
+              let data = {
+                action:"coordinates", 
+                userID:userID,
+                latitude:position.coords.latitude,
+                longitude:position.coords.longitude
+              };
+
+              websocket.send(JSON.stringify(data));
+            });
+        }
+
         // Generera ett användar ID
         let userID = "{{email}}";
         // Connecta till vår websocket-server
@@ -74,6 +91,7 @@
             let data = { action: "joined", userID: userID };
             console.log("[Websocket]: joined", data)
             websocket.send(JSON.stringify(data));
+            sendUserPosition(websocket, userID)
         };
         
         // När vi tar emot ett meddelande från servern
@@ -93,7 +111,10 @@
                 resetUserList(data);
             } else if (data.action == "leave") {
                 resetUserList(data);
+            } else if (data.action == "coordinates") {
+                receivedUserPosition(data);
             }
+             
         };
 
         // När vi klickar på skicka knappen

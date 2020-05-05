@@ -75,6 +75,31 @@ async def received_chat_message(data):
         # Detta skickar ut meddelande till alla connectade användare
         await asyncio.wait([conn.send(message) for conn in CONNECTIONS])
 
+async def received_user_position(data):
+    if CONNECTIONS:
+        user_id = data["userID"]
+        latitude = data["latitude"]
+        longitude = data["longitude"]
+
+        users = STATE["users"]
+        for user in users: 
+            if user["userID"] == user_id:
+                user.update({
+                    "latitude":latitude, 
+                    "longitude":longitude
+                })
+
+        # Meddelande som skickas ut till alla som är connectade, vi konverterar
+        # det till JSON så vi kan använda oss av det i vår JavaScript sen
+        message = json.dumps({
+            "action": "coordinates",
+            "userID": user_id,
+            "users": users # vi skickar med listan över alla nuvarande användare varje gång någon connectar
+        })
+        # Detta skickar ut meddelande till alla connectade användare
+        await asyncio.wait([conn.send(message) for conn in CONNECTIONS])
+
+
 # Registrera en ny användares connection
 async def register(websocket):
     CONNECTIONS.add(websocket)
@@ -102,10 +127,12 @@ async def main(websocket, path):
             # vi delegerar till andra funktioner för enkelhetens skull
             if data["action"] == "joined":
                 await user_joined(data)
-            if data["action"] == "leave":
+            elif data["action"] == "leave":
                 await user_leave(data)
             elif data["action"] == "message":
                 await received_chat_message(data)
+            elif data["action"] == "coordinates":
+                await received_user_position(data)
 
     except websockets.ConnectionClosed:
         print("[Websocket]: Connection closed")
