@@ -108,10 +108,17 @@ def map():
 def emergency():
     return template('emergency')
 
+@route('/hamburgare')
+def hamburgare():
+    return template('hamburgare')
+
+@route('/PrivacyPolicy')
+def PrivacyPolicy():
+    return template('PrivacyPolicy')
 
 @route('/chatt')
 def chatt():
     return template('chatt')
 
 
-run(host='localhost', port=8083, debug=True, reloader=True)
+run(host='localhost', port=8082, debug=True, reloader=True)
