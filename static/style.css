@@ -23,6 +23,8 @@ body {
     position: fixed;
     margin-left: 37%;
     background-color: white;
+    border-radius: 10px;
+
 }
 #register_page {
   margin: 0;
@@ -46,15 +48,30 @@ body {
 }
 
 img{
-    max-height: 550px;
-    max-width: 550px;
-    margin-left: 110px;
-    z-index: 1;
-    position: fixed;
-    margin-top:11%;
+  max-height: 90%;
+  max-width: 90%;
+  z-index: 1;
+  position: fixed;
+  margin-top: 95%;
 
 }
 
+#mini-logga {
+  max-width: 25% !important;
+  max-height: 25% !important;
+  position: relative !important;
+  margin-top: 0px !important;
+  float: right;
+}
+
+.placering {
+  z-index: 2;
+  position: absolute;
+}
+
+#logga-1 {
+  margin-top: auto !important;
+}
 
 .material-icons {
     font-size: 30px;
