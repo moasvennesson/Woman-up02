@@ -80,7 +80,6 @@ def map():
     print(inloggad)
     conn = sqlite3.connect("woman-up.db")
     cursor= conn.cursor()
-    inloggad = "" ##den som är inloggad
     klart = ""
     if request.method == 'POST':
         print("Post")
