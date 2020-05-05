@@ -13,7 +13,7 @@
 </head>
 
 <body id="register_page">
-    <div id="wrapper">
+    <div id="wrapper" class="placering">
         <form action="/register" method="POST" id="registering">
             <h1>Skapa en profil</h1>
             <div class="form-row">
@@ -141,10 +141,8 @@
             <p>{{msg}}</p>
 
         </form>
-        <div id="bild">
-            <img src="/static/logga.jpg" alt="">
-        </div> 
     </div>
+    <img src="/static/logga.jpg" id="mini-logga" alt="logga">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
