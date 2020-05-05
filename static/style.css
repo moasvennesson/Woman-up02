@@ -60,8 +60,9 @@ img{
   max-width: 25% !important;
   max-height: 25% !important;
   position: relative !important;
-  margin-top: 0px !important;
+  margin-top: 2px !important;
   float: right;
+  margin-right: 9px;
 }
 
 .placering {
@@ -69,8 +70,9 @@ img{
   position: absolute;
 }
 
-#logga-1 {
-  margin-top: 50% !important;
+.färg {
+  background-image: linear-gradient(to left bottom, #e752d4, #de60d9, #d56bdd, #cc75e0, #c47ee1, #bc7adf, #b477de, #ac73dc, #a163d8, #9554d4, #8843cf, #7b32cb);
+  color:black;
 }
 
 .material-icons {
