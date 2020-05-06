@@ -72,7 +72,7 @@ img{
 
 .färg {
   background-image: linear-gradient(to left bottom, #e752d4, #de60d9, #d56bdd, #cc75e0, #c47ee1, #bc7adf, #b477de, #ac73dc, #a163d8, #9554d4, #8843cf, #7b32cb);
-  color:black;
+  color:white;
 }
 
 .material-icons {
@@ -157,7 +157,6 @@ img{
 
 /* CSS till startpage*/
 #Chatt, #Karta, #Nödrop{
-    border: 1px solid black;
     padding: 20px 50px 20px 50px;
     text-align: center;
     font-size: 50px;
