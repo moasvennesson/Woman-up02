@@ -23,7 +23,8 @@ def startpage():
 @route("/", method=["POST", "GET"]) 
 def login():
     global inloggad
-    ''' Loginsidan'''
+    ''' Loginsidan, hämtar email och password från HTML formuläret,
+    ansluter till sqlite databasen woman-up och kollar om de uppgifterna finns'''
     msg = ""
     if request.method == "POST":
         email = getattr(request.forms, "email")
@@ -45,6 +46,7 @@ def login():
 
 @route('/register', method=["POST", "GET"])
 def register():
+    '''Registerar en ny användare i databasen och kollar om mailen redan är registrerad'''
     msg = ""
     if request.method =="POST":
         firstname = getattr(request.forms, 'firstname')
