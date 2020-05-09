@@ -115,6 +115,10 @@ def hamburgare():
 def PrivacyPolicy():
     return template('PrivacyPolicy')
 
+@route('/profilsida')
+def profilsida():
+    return template('profilsida')
+
 @route('/chatt')
 def chatt():
     email = request.query.get('email')
