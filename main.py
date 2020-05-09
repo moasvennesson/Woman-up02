@@ -118,7 +118,8 @@ def PrivacyPolicy():
 
 @route('/chatt')
 def chatt():
-    return template('chatt')
+    email = request.query.get("email")
+    return template('chatt', email = email)
 
 
 run(host='localhost', port=8083, debug=True, reloader=True)
