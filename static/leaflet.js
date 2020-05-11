@@ -2,7 +2,6 @@
 var x = document.getElementById("DinPlats"), latitude,  longitude, accruacy;
 //används till att ge färger till vännerna.
 var Colors = ["Red","Orange","Yellow","Cyan","Blue","Purple","Pink","White","Gray","Brown"];
-document.getElementById("spara_plats").value = "test";
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -17,9 +16,8 @@ function showPosition(position) {
   latitude = position.coords.latitude;
   longitude = position.coords.longitude;
   accruacy = position.coords.accuracy; 
-  document.getElementById("spara_plats").value = (latitude + "," + longitude + "," + accruacy);
   //skriver till var x
-  x.innerHTML = latitude + " " + longitude + " accruacy: inom "+ accruacy + "m från din riktiga position";
+  //x.innerHTML = latitude + " " + longitude + " accruacy: inom "+ accruacy + "m från din riktiga position";
   getMap();
 }
 
@@ -36,7 +34,7 @@ function getMap(){
         tileSize: 512,
         zoomOffset: -1
     }).addTo(mymap);
-    L.marker([latitude,longitude]).addTo(mymap).bindPopup("<b>Din plats </b>").openPopup();
+   L.marker([latitude,longitude]).addTo(mymap).bindPopup("<b>Din plats </b>").openPopup();
     //L.marker ger en pin på platsen (på din plats)
     var circle = L.circle([latitude, longitude], {
         color: 'green',
@@ -51,16 +49,17 @@ function getMap(){
 }
  
 //lägger till vänner på kartan
-function getFriendsMap(FriendsName,poslat,poslon,Offset,mymap){
-  for (i = 0; i < FriendsName.length-1; i++) {
-      if(FriendsName[i] != null &&  poslat!= null && poslon != null){
+function getFriendsMap(NamnF,pos,text,date,mymap){
+  for (i = 0; i < NamnF.length-1; i++) {
+      a = i*3;
+      if(NamnF[i] != null &&  pos!= null){
       // använder Colors array för att ge färg till Personer L.marker ger en pin på platsen
-        L.marker([poslat[i],poslon[i]]).addTo(mymap).bindPopup("<b>"+FriendsName[i]+"</b>");
+        L.marker([pos[a],pos[(a+1)]]).addTo(mymap).bindPopup("<b>"+NamnF[i]+"</b> " +text + "datum " + date);
         var circle = L.circle([poslat[i], poslon[i]], {
             color: 'Blue',
             fillColor: 'Purple',
             fillOpacity: 0.5,
-            radius: Offset[i]
+            radius: Offset[a+3]
         }).addTo(mymap);
     }
   }
@@ -87,16 +86,16 @@ function getDatabaseFriendsOnMap(mymap){
     //Hämtar input från databasen
     //Formatet måste , mellan varje
     stringtoarray = document.getElementById("SendName").innerHTML;
-    NamnF = stringtoarray.split(",");
-    stringtoarray = document.getElementById("SendLat").innerHTML;
-    poslat = stringtoarray.split(",");
-    stringtoarray = document.getElementById("SendLong").innerHTML;
-    poslon = stringtoarray.split(",");
-    stringtoarray = document.getElementById("SendOffset").innerHTML;
-    Offset = stringtoarray.split(",");
+    NamnF = stringtoarray.split(";");
+    stringtoarray = document.getElementById("Pos").innerHTML;
+    pos = stringtoarray.split(",");
+    stringtoarray = document.getElementById("text").innerHTML;
+    text = stringtoarray.split(";");
+    stringtoarray = document.getElementById("datum").innerHTML;
+    date = stringtoarray.split(";");
     ////////////////////////////////////////////////////////////////
     // 3 arrayer latitud longitud Namn
-    getFriendsMap(NamnF,poslat,poslon,Offset,mymap);
+    getFriendsMap(NamnF,pos,text,date,mymap);
  
 }
 

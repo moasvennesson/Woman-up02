@@ -9,14 +9,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/static/style.css" rel="stylesheet" type="text/css">
 </head>
-<!-- 
-<nav>
-    <p id="back">
-        -- Lägga till en pil bild?
-        <a href="startpage">
-            <-- </a>
-    </p> 
-</nav> -->
+
 <ul id="slide-out" class="sidenav">
     <li>
         <div class="user-view">
@@ -38,31 +31,39 @@
     <li><a class="subheader">Bjud in</a></li>
 </ul>
 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-
+<h3><a href="/startpage">&larr;</a></h3>
 <body id="b_Nödrop">
-    <h2>
+    <h2 id="Rubrik">
         Nödrop
     </h2>
-    <div id="Val">
-        <p id="Help1">
+    <p id="Help1">
+        <button onclick="text1()" id="Hbutton">
             Hejsan! Ska hem nu, hade du kunnat följa mig?
-        </p>
-        <p id="Help2">
+        </button> 
+    </p>
+    <p id="Help2">
+        <button onclick="text2()" id="Hbutton">
             Jag är i fara hjälp mig!
-        </p>
-        <p id="Help3">
+        </button> 
+    </p>
+    <p id="Help3">
+        <button onclick="text3()" id="Hbutton">
             Någon förföljer mig. Kan du hjälpa mig?
+        </button>
+    </p>
+    <form action="emergency" method="POST">
+        <p id="Htext">
+            <input type="text" class="form-control" id="pos" name="pos" required>
+            <textarea rows="4" cols="50" id="Truta" class="form-control" name="Truta" required></textarea>
         </p>
-    </div>
-    <p id="Htext">
-        <textarea rows="4" cols="50"></textarea>
-    </p>
-    <p id="Send">
-        <button> Skicka</button>
-    </p>
+        <p id="Send">
+            <button> Skicka</button>
+        </p>
+    </form>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="/static/javascript.js"></script>
+    <script src="/static/emergency.js"></script>
 </body>
 
 </html>

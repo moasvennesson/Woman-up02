@@ -15,32 +15,24 @@
    
     <body>
         <h3><a href="/startpage">&larr;</a></h3>
-        <form action="/map" method="POST"> 
-            <input type="text" class="form-control" id="spara_plats" name="spara_plats" required>
-            <button type="submit"> Spara din plats</button> 
-        </form>
-        <p id="update_loc">
-            {{klart}}
-        </p>
-
         <p id = "SendName">
-        % for user in location:
-        {{str(user[0])+","}}
+        % for user in Listarop:
+        {{str(user[1])+";"}}
         % end
         </p> 
-        <p id = "SendLong">
-        % for user in location:
-        {{str(user[1])+","}}
+        <p id = "text">
+        % for text in Listarop:
+        {{str(text[0])+";"}}
         % end
         </p> 
-        <p id = "SendLat">
-        % for user in location:
-        {{str(user[2])+","}}
+        <p id = "datum">
+        % for date in Listarop:
+        {{str(date[2])+";"}}
         % end
         </p>
-        <p id = "SendOffset">
-        % for user in location:
-        {{str(user[3])+","}}
+        <p id = "Pos">
+        % for pos in Listarop:
+            {{str(pos[3])+";"}}
         % end
         </p>
         

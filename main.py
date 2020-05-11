@@ -2,6 +2,9 @@ from bottle import route, run, template, request, redirect, error, static_file, 
 from datetime import datetime, date
 import sqlite3
 import os
+import datetime
+import json
+import websockets
 abs_app_dir_path = os.path.dirname(os.path.realpath(__file__))
 abs_views_path = os.path.join(abs_app_dir_path, 'views')
 abs_static_path = os.path.join(abs_app_dir_path, 'static')
@@ -77,36 +80,27 @@ def popup():
 
 @route('/map', method=["POST", "GET"])
 def map(): 
+    global Listarop
     global inloggad
     print(inloggad)
-    conn = sqlite3.connect("woman-up.db")
-    cursor= conn.cursor()
-    klart = ""
-    if request.method == 'POST':
-        print("Post")
-         ### den som är inloggad
-        all_location = getattr(request.forms, 'spara_plats') ## ser ut long,lat,offset
-        list_location = all_location.split(",") ##delar upp i array
-        print(list_location)
-        sql = "UPDATE user SET long ="+list_location[0]  +", lat =" + list_location[1]+ ", offset = "+list_location[2]+ " WHERE email = '"+ inloggad +"'"
-        print("ok")
-        klart = "Din plats är uppdaterad"
-        cursor.execute(sql)
-        
-    location=[] #alla som ska skrivas ut på kartan sparas här
-    sql = "select first_name,long,lat,offset from user where email != '" + inloggad+"'"
-    print(sql)
-    cursor.execute(sql)
-    for x in cursor:
-        location.append(x)
-    print(location)
-    conn.commit()
+    print(Listarop)
+    return template('map',Listarop=Listarop)
 
-    return template('map',location=location, klart=klart)
+Listarop = []
 
-@route('/emergency')
+@route('/emergency',method=["POST", "GET"])
 def emergency():
-    return template('emergency')
+    global inloggad
+    global Listarop
+    email = "test"
+    if request.method == 'POST':
+        Etext=getattr(request.forms, 'Truta')
+        datum = datetime.datetime.now()
+        pos = getattr(request.forms, 'pos')
+        listan = [Etext,inloggad,datum,pos]
+        Listarop.append(listan)
+        redirect("/map")
+    return template('emergency', email = email)
 
 @route('/hamburgare')
 def hamburgare():
@@ -122,4 +116,4 @@ def chatt():
     return template('chatt', email = email)
 
 
-run(host='localhost', port=8083, debug=True, reloader=True)
+run(host='localhost', port=9081, debug=True, reloader=True)
