@@ -110,10 +110,14 @@ def hamburgare():
 def PrivacyPolicy():
     return template('PrivacyPolicy')
 
+@route('/FAQ')
+def FAQ():
+    return template('FAQ')
+
 @route('/chatt')
 def chatt():
     email = request.query.get("email")
     return template('chatt', email = email)
 
 
-run(host='localhost', port=9081, debug=True, reloader=True)
+run(host='localhost', port=9082, debug=True, reloader=True)
