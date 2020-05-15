@@ -11,7 +11,6 @@ abs_views_path = os.path.join(abs_app_dir_path, 'views')
 abs_static_path = os.path.join(abs_app_dir_path, 'static')
 TEMPLATE_PATH.insert(0, abs_views_path)
 
-inloggad = 'None'
 
 # Settings for the session
 session_opts = {
@@ -29,6 +28,7 @@ app = beaker.middleware.SessionMiddleware(app(), session_opts)
 def setup_request():
     request.session = request.environ['beaker.session']
 
+
 @route('/static/<filename>')
 def server_static(filename):
     return static_file(filename, root=abs_static_path)
@@ -42,7 +42,6 @@ def startpage():
 
 @route('/', method=['POST', 'GET']) 
 def login():
-    global inloggad
     ''' Loginsidan, hämtar email och password från HTML formuläret,
     ansluter till sqlite databasen woman-up och kollar om de uppgifterna finns'''
     msg = ""
@@ -54,18 +53,24 @@ def login():
         c.execute('SELECT * FROM user WHERE email = ? and password = ?',(email, password))
         user = c.fetchone() 
         if user:
-            inloggad = email
-            print(inloggad)
-
             # Save logged in user in session
             request.session['logged-in'] = True
             request.session['email'] = email
+            inloggad = email
+            print(inloggad)
 
             redirect('/startpage?email={}'.format(user[4])) 
         else:
             msg = 'Inkorrekt email eller lösenord'
 
     return template('index', msg=msg)
+
+
+@route('/logout')
+def logout():
+    if "logged-in" in request.session:
+        request.session['logged-in'] = False
+        return 'Du är utloggad'
 
 
 @route('/register', method=['POST', 'GET'])
@@ -80,7 +85,6 @@ def register():
         email = getattr(request.forms, 'email')
         conn = sqlite3.connect('woman-up.db')
         c = conn.cursor()
-    
         c.execute('SELECT * FROM user WHERE email = ?', (email,))
         if c.fetchone():
             msg = 'Den email adressen är reddan registrerad'
@@ -92,6 +96,7 @@ def register():
             redirect('/')
 
     return template('register', msg=msg)
+
 
 @route('/login-status')
 def login_status():
@@ -111,27 +116,34 @@ def popup():
 @route('/map', method=['POST', 'GET'])
 def map(): 
     global Listarop
-    global inloggad
-    print(inloggad)
-    print(Listarop)
-    return template('map',Listarop=Listarop)
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            email = request.session['email']
+            print(email)
+            print(Listarop)
+            return template('map',Listarop=Listarop)
+    else:
+        return "Inte in loggade!"
 
 Listarop = []
 
 
 @route('/emergency',method=['POST', 'GET'])
 def emergency():
-    global inloggad
     global Listarop
-    email = 'test'
-    if request.method == 'POST':
-        Etext=getattr(request.forms, 'Truta')
-        datum = datetime.datetime.now()
-        pos = getattr(request.forms, 'pos')
-        listan = [Etext,inloggad,datum,pos]
-        Listarop.append(listan)
-        redirect("/map")
-    return template('emergency', email = email)
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            email = request.session['email']
+            if request.method == 'POST':
+                Etext=getattr(request.forms, 'Truta')
+                datum = datetime.datetime.now()
+                pos = getattr(request.forms, 'pos')
+                listan = [Etext,email,datum,pos]
+                Listarop.append(listan)
+                redirect("/map")
+            return template('emergency', email = email)
+    else:
+        return "Inte in loggade!"
 
 
 @route('/hamburgare')
@@ -151,8 +163,12 @@ def FAQ():
 
 @route('/chatt')
 def chatt():
-    email = request.query.get('email')
-    return template('chatt', email = email)
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            email = request.session['email']
+            return template('chatt', email = email)
+    else:
+        return "Inte in loggade!"
 
 
 run(app=app, host='localhost', port=9082, debug=True, reloader=True) # Updated according to documentation with 'app=app'
