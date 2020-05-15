@@ -1,5 +1,5 @@
 from bottle import route, run, template, request, redirect, error, static_file, TEMPLATE_PATH, get, post, hook, app
-from bottle.ext import beaker # Import session beaker
+from bottle.ext import beaker 
 from datetime import datetime, date
 import sqlite3
 import os
@@ -42,8 +42,8 @@ def startpage():
 
 @route('/', method=['POST', 'GET']) 
 def login():
-    ''' Loginsidan, hämtar email och password från HTML formuläret,
-    ansluter till sqlite databasen woman-up och kollar om de uppgifterna finns'''
+    '''Login page, retrives the email and password from the HTML form.
+    Connects to the SQLite database "woman-up" and checks if the information exist in the database'''
     msg = ""
     if request.method == 'POST':
         email = getattr(request.forms, 'email')
@@ -75,7 +75,7 @@ def logout():
 
 @route('/register', method=['POST', 'GET'])
 def register():
-    '''Registerar en ny användare i databasen och kollar om mailen redan är registrerad'''
+    '''Registers a new user in the SQLite database and checks if the email is already taken'''
     msg = ""
     if request.method =='POST':
         firstname = getattr(request.forms, 'firstname')
@@ -166,9 +166,13 @@ def chatt():
     if "logged-in" in request.session:
         if request.session['logged-in'] == True:
             email = request.session['email']
-            return template('chatt', email = email)
+            conn = sqlite3.connect('woman-up.db')
+            c = conn.cursor()
+            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            user = c.fetchone()
+            return template('chatt', user = user)
     else:
         return "Inte in loggade!"
 
 
-run(app=app, host='localhost', port=9082, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+run(app=app, host='localhost', port=9082, debug=True, reloader=True) 
