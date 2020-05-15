@@ -1,4 +1,5 @@
-from bottle import route, run, template, request, redirect, error, static_file, TEMPLATE_PATH, get, post
+from bottle import route, run, template, request, redirect, error, static_file, TEMPLATE_PATH, get, post, hook, app
+from bottle.ext import beaker # Import session beaker
 from datetime import datetime, date
 import sqlite3
 import os
@@ -11,6 +12,22 @@ abs_static_path = os.path.join(abs_app_dir_path, 'static')
 TEMPLATE_PATH.insert(0, abs_views_path)
 
 inloggad = 'None'
+
+# Settings for the session
+session_opts = {
+    'session.type': 'file',
+    'session.cookie_expires': 300,
+    'session.data_dir': './data',
+    'session.auto': True
+}
+
+# Activate sessions for the app
+app = beaker.middleware.SessionMiddleware(app(), session_opts)
+
+# Added hook for easier access to session
+@hook('before_request')
+def setup_request():
+    request.session = request.environ['beaker.session']
 
 @route('/static/<filename>')
 def server_static(filename):
@@ -39,6 +56,11 @@ def login():
         if user:
             inloggad = email
             print(inloggad)
+
+            # Save logged in user in session
+            request.session['logged-in'] = True
+            request.session['email'] = email
+
             redirect('/startpage?email={}'.format(user[4])) 
         else:
             msg = 'Inkorrekt email eller lösenord'
@@ -70,6 +92,15 @@ def register():
             redirect('/')
 
     return template('register', msg=msg)
+
+@route('/login-status')
+def login_status():
+    '''Demo page to see if a user logged in'''
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            return "User logged in with: " + request.session['email']
+    else:
+        return "Not logged in!"
 
 
 @route('/FullPrivacyPolicy')
@@ -124,4 +155,4 @@ def chatt():
     return template('chatt', email = email)
 
 
-run(host='localhost', port=9082, debug=True, reloader=True)
+run(app=app, host='localhost', port=9082, debug=True, reloader=True) # Updated according to documentation with 'app=app'
