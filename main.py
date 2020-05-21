@@ -96,10 +96,13 @@ def register():
         else:
             c.execute('INSERT INTO user VALUES(?,?,?,?,?,?,?,?)',(firstname, lastname, phonenumber, password, email, None, None, None))
             conn.commit()
-            redirect('/')
+            redirect('/updateaccount')
 
     return template('register', msg=msg)
 
+@route('/updateaccount')
+def updateaccount():
+    return template('updateaccount')
 
 @route('/login-status')
 def login_status():
