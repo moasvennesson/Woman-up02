@@ -160,6 +160,9 @@ def PrivacyPolicy():
 def FAQ():
     return template('FAQ')
 
+@route('/profilsida')
+def profilsida():
+    return template('profilsida')
 
 @route('/chatt')
 def chatt():
