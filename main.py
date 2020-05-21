@@ -180,4 +180,4 @@ def chatt():
         return "Inte in loggade!"
 
 
-run(app=app, host='localhost', port=9083, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+run(app=app, host='localhost', port=9084, debug=True, reloader=True) # Updated according to documentation with 'app=app'

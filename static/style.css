@@ -41,6 +41,10 @@ body {
     padding: 5px;
 }
 
+#login-button {
+  width: 100%;
+}
+
 #kontakt {
     margin-left: 100px;
 }
@@ -197,7 +201,8 @@ a{
 }
 
 #Send{
-    width: 100%;
+    justify-content: center;
+    width: 80%;
     
 }
 #pos{
