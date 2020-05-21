@@ -31,6 +31,15 @@ body {
   width: 100%;
   height: 100%;
 }
+#error{
+  color: red;
+}
+
+#Pname{
+  text-align: center;
+  margin-top:100px;
+
+}
 
 .form-check{
   padding:10px,;
@@ -39,6 +48,10 @@ body {
 
 .länkar {
     padding: 5px;
+}
+
+#login-button {
+  width: 100%;
 }
 
 #kontakt {
@@ -197,7 +210,8 @@ a{
 }
 
 #Send{
-    text-align: center;
+    justify-content: center;
+    width: 80%;
     
 }
 #pos{
@@ -291,9 +305,12 @@ a{
 #PP{
 margin: 20px;
 }
+
 .faqHeader {
   font-size: 27px;
   margin: 20px;
+  z-index: 2;
+  position: fixed;
 }
 
 #hlogga {
@@ -310,4 +327,11 @@ margin: 20px;
 
 #Htext {
   background-color:white ;
+}
+/* FAQ frrågor*/
+#faqAccordion{
+  z-index: 2;
+  position: fixed;
+  margin: 60px;
+  margin-left:5px;
 }

@@ -12,32 +12,14 @@
 </head>
 
 <body>
-    <h1 id="Pname">
-        Woman Up
-    </h1>
-    <div class="box">
-        <form action="/" method="POST">
-            <div class="form-group">
-                <label for="email">Epost</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                    else.</small>
-            </div>
-            <div class="form-group">
-                <label for="password">Lösenord</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
-            <input type="submit" value="Logga in" id="login-button">
-            <p>{{msg}}</p>
-            <input type="submit" value="Login">
-            <p id="error">{{msg}}</p>
-        </form>
-        <div class="länkar">
-            <a href="/register">Skapa konto</a>
-            <a href="mailto: 02.woman.up@gmail.com" id="kontakt">Kontakta oss</a>
-        </div>
-    </div>
-    
+
+            <form action="/">
+                <div class="box">
+                    <p>Success! Du är nu registrerad</p>
+                    <input type="submit" value="Logga in" id="login-button">
+                </div>
+            </form>
+
    <div id="bild">
         <img src="/static/logga.jpg" alt="">
     </div> 
