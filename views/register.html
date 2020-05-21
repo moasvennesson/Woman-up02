@@ -13,6 +13,7 @@
 </head>
 
 <body id="register_page">
+    <h3><a href="/">&larr;</a></h3>
     <div id="wrapper" class="placering">
         <form action="/register" method="POST" id="registering">
             <h1>Skapa en profil</h1>
@@ -138,7 +139,7 @@
                     </label>
                 </div>
             <input type="submit" value="Register">
-            <p>{{msg}}</p>
+            <p id="error">{{msg}}</p>
 
         </form>
     </div>
