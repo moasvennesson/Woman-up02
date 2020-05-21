@@ -184,10 +184,10 @@ a{
 }
 
 #Help1,#Help2,#Help3{
-    border: 1px solid black;
     margin: 10px 30px;
     text-align: center;
-    padding:10px;
+    padding:12px;
+    font-size: large;
     
 }
 
@@ -298,4 +298,16 @@ margin: 20px;
 
 #hlogga {
   font-family: 'Raleway', sans-serif;
+}
+
+#b_Nödrop {
+  background-image: url(/static/logga.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  justify-content: center;
+}
+
+#Htext {
+  background-color:white ;
 }
