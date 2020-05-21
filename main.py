@@ -36,8 +36,11 @@ def server_static(filename):
 
 @route('/startpage')
 def startpage():
-    email = request.query.get('email')
-    return template('startpage', email = email)
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            return template('startpage')
+    else:
+        return "Inte in loggade!"
 
 
 @route('/', method=['POST', 'GET']) 
@@ -59,7 +62,7 @@ def login():
             inloggad = email
             print(inloggad)
 
-            redirect('/startpage?email={}'.format(user[4])) 
+            redirect('/startpage') 
         else:
             msg = 'Inkorrekt email eller lösenord'
 
@@ -70,7 +73,7 @@ def login():
 def logout():
     if "logged-in" in request.session:
         request.session['logged-in'] = False
-        return 'Du är utloggad'
+        redirect("/")
 
 
 @route('/register', method=['POST', 'GET'])
