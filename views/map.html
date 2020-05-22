@@ -1,51 +1,79 @@
 <!DOCTYPE html>
 <html lang="sv">
-    <head>
-        <meta charset=utf-8>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+
+<head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-        crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
-        <link href="/static/style.css"rel="stylesheet" type="text/css">
-        <link href="https://api.mapbox.com/maxbox-gl-js/v0.38.0/mapbox-gl.css" rel='stylesheet'/>
+    <link href="/static/style.css" rel="stylesheet" type="text/css">
+    <link href="https://api.mapbox.com/maxbox-gl-js/v0.38.0/mapbox-gl.css" rel='stylesheet' />
 
-    </head>
-   
-    <body>
-        <p id = "SendName">
+</head>
+
+<body>
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                </div>
+                <h3 id="hlogga">Woman Up</h3>
+                <h4 id="user_menu">{{user}}</h4>
+                <a href="/startpage"><span class="black-text name">Hem</span></a>
+            </div>
+        </li>
+        <li><a href="/profilsida"></i>Visa profil</a></li>
+        <li><a href="#!">Inställningar</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a href="/hamburgare">Externa länkar</a></li>
+        <li><a class="waves-effect">FAQ</a></li>
+        <li><a class="waves-effect" href="/PrivacyPolicy">Privacy Policy</a></li>
+        <li><a class="waves-effect" href="/logout">Logga ut</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <p id="SendName">
         % for user in Listarop:
         {{str(user[1])+";"}}
         % end
-        </p> 
-        <p id = "text">
+    </p>
+    <p id="text">
         % for text in Listarop:
         {{str(text[0])+";"}}
         % end
-        </p> 
-        <p id = "datum">
+    </p>
+    <p id="datum">
         % for date in Listarop:
         {{str(date[2])+";"}}
         % end
-        </p>
-        <p id = "Pos">
+    </p>
+    <p id="Pos">
         % for pos in Listarop:
-            {{str(pos[3])+";"}}
+        {{str(pos[3])+";"}}
         % end
-        </p>
-        
-        <p id = "DinPlats">
+    </p>
 
-        </p>
-        <div id ="mapid"></div>
-        <script type="text/javascript" src="/static/leaflet.js"></script>
-       
+    <p id="DinPlats">
 
-        </p>
+    </p>
+    <div id="mapid"></div>
+    <script type="text/javascript" src="/static/leaflet.js"></script>
     
-            
-        
-    </body>
+
+
+    </p>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/static/javascript.js"></script>
+</body>
 
 </html>

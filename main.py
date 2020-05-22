@@ -132,9 +132,14 @@ def map():
     if "logged-in" in request.session:
         if request.session['logged-in'] == True:
             email = request.session['email']
-            print(email)
+            conn = sqlite3.connect('woman-up.db')
+            c = conn.cursor()
+            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
+            print(uid)
             print(Listarop)
-            return template('map',Listarop=Listarop)
+            return template('map',Listarop=Listarop, user = uid)
     else:
         return "Inte in loggade!"
 
@@ -156,7 +161,7 @@ def emergency():
                 Etext=getattr(request.forms, 'Truta')
                 datum = datetime.datetime.now()
                 pos = getattr(request.forms, 'pos')
-                listan = [Etext,email,datum,pos]
+                listan = [Etext,uid,datum,pos]
                 Listarop.append(listan)
                 redirect("/map")
             return template('emergency', email = email, user = uid)
