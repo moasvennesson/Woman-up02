@@ -8,13 +8,9 @@ create database woman-up;
 create table user(
     first_name text,
     last_name text,
-    tel_num int,
     password varchar(20) ,
     email text,
-    long double(255,7),
-    lat double(255, 7),
-    offset double(255, 7),
-    
+
     primary key (email)
 );
 

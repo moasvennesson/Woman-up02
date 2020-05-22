@@ -317,6 +317,10 @@ margin: 20px;
   font-family: 'Raleway', sans-serif;
 }
 
+#user_menu {
+  font-family: 'Raleway', sans-serif;
+}
+
 #b_Nödrop {
   background-image: url(/static/logga.jpg);
   background-position: center;

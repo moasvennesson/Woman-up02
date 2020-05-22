@@ -15,7 +15,7 @@ TEMPLATE_PATH.insert(0, abs_views_path)
 # Settings for the session
 session_opts = {
     'session.type': 'file',
-    'session.cookie_expires': 300,
+    'session.cookie_expires': True,
     'session.data_dir': './data',
     'session.auto': True
 }
@@ -38,7 +38,14 @@ def server_static(filename):
 def startpage():
     if "logged-in" in request.session:
         if request.session['logged-in'] == True:
-            return template('startpage')
+            email = request.session['email']
+            conn = sqlite3.connect('woman-up.db')
+            c = conn.cursor()
+            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
+            return template('startpage', user = uid)
+            
     else:
         return "Inte in loggade!"
 
@@ -140,6 +147,11 @@ def emergency():
     if "logged-in" in request.session:
         if request.session['logged-in'] == True:
             email = request.session['email']
+            conn = sqlite3.connect('woman-up.db')
+            c = conn.cursor()
+            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
             if request.method == 'POST':
                 Etext=getattr(request.forms, 'Truta')
                 datum = datetime.datetime.now()
@@ -147,29 +159,77 @@ def emergency():
                 listan = [Etext,email,datum,pos]
                 Listarop.append(listan)
                 redirect("/map")
-            return template('emergency', email = email)
+            return template('emergency', email = email, user = uid)
     else:
         return "Inte in loggade!"
 
 
 @route('/hamburgare')
 def hamburgare():
-    return template('hamburgare')
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            email = request.session['email']
+            conn = sqlite3.connect('woman-up.db')
+            c = conn.cursor()
+            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
+            return template('hamburgare', user = uid)
+            
+    else:
+        return "Inte in loggade!"
 
 
 @route('/PrivacyPolicy')
 def PrivacyPolicy():
-    return template('PrivacyPolicy')
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            email = request.session['email']
+            conn = sqlite3.connect('woman-up.db')
+            c = conn.cursor()
+            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
+            return template('PrivacyPolicy', user = uid)
+            
+    else:
+        return "Inte in loggade!"
+    
 
 
 @route('/FAQ')
 def FAQ():
-    return template('FAQ')
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            email = request.session['email']
+            conn = sqlite3.connect('woman-up.db')
+            c = conn.cursor()
+            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
+            return template('FAQ', user = uid)
+            
+    else:
+        return "Inte in loggade!"
+    
 
 
 @route('/profilsida')
 def profilsida():
-    return template('profilsida')
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            email = request.session['email']
+            conn = sqlite3.connect('woman-up.db')
+            c = conn.cursor()
+            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
+            return template('profilsida', user = uid)
+            
+    else:
+        return "Inte in loggade!"
+    
+
 
 @route("/chatt")
 def chatt():
