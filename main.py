@@ -90,7 +90,7 @@ def register():
         c = conn.cursor()
         c.execute('SELECT * FROM user WHERE email = ?', (email,))
         if c.fetchone():
-            msg = 'Den email adressen är reddan registrerad'
+            msg = 'Den email adressen är redan registrerad'
         elif not password or not email:
             msg = 'Vänligen uppge all uppgifter'
         else:
@@ -180,4 +180,4 @@ def chatt():
         return "Inte in loggade!"
 
 
-run(app=app, host='localhost', port=9083, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+run(app=app, host='localhost', port=9084, debug=True, reloader=True) # Updated according to documentation with 'app=app'

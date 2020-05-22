@@ -12,6 +12,9 @@
 </head>
 
 <body>
+    <h1 id="Pname">
+        Woman Up
+    </h1>
     <div class="box">
         <form action="/" method="POST">
             <div class="form-group">
@@ -24,8 +27,8 @@
                 <label for="password">Lösenord</label>
                 <input type="password" class="form-control" id="password" name="password">
             </div>
-            <input type="submit" value="Login">
-            <p>{{msg}}</p>
+            <input type="submit" value="Logga in" id="login-button">
+            <p id="error">{{msg}}</p>
         </form>
         <div class="länkar">
             <a href="/register">Skapa konto</a>
