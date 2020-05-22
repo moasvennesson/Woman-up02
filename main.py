@@ -20,8 +20,10 @@ session_opts = {
     'session.auto': True
 }
 
+
 # Activate sessions for the app
 app = beaker.middleware.SessionMiddleware(app(), session_opts)
+
 
 # Added hook for easier access to session
 @hook('before_request')
@@ -107,9 +109,11 @@ def register():
 
     return template('register', msg=msg)
 
+
 @route('/updateaccount')
 def updateaccount():
     return template('updateaccount')
+
 
 @route('/login-status')
 def login_status():
@@ -211,7 +215,6 @@ def PrivacyPolicy():
         return "Inte in loggade!"
     
 
-
 @route('/FAQ')
 def FAQ():
     if "logged-in" in request.session:
@@ -228,7 +231,6 @@ def FAQ():
         return "Inte in loggade!"
     
 
-
 @route('/profilsida')
 def profilsida():
     if "logged-in" in request.session:
@@ -244,7 +246,6 @@ def profilsida():
     else:
         return "Inte in loggade!"
     
-
 
 @route("/chatt")
 def chatt():
