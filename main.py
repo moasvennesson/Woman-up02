@@ -170,9 +170,10 @@ def chatt():
             c = conn.cursor()
             c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
             user = c.fetchone()
-            return template('chatt', user = user)
+            uid=str(user).strip("(,')")
+            return template('chatt', user = uid, email = email)
     else:
         return "Inte in loggade!"
 
 
-run(app=app, host='localhost', port=9082, debug=True, reloader=True) 
+run(app=app, host='localhost', port=9085, debug=True, reloader=True) 

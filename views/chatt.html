@@ -16,7 +16,7 @@
     <div id="wrapper">
         <div class="container" id="chatt-box">
             <div class="jumbotron">
-                <h3><a href="/startpage">&larr; User</a></h3>
+                <h3><a href="/startpage">&larr; {{user}}</a></h3>
                 <div class="chat-container">
 
                     <p>users:</p>
@@ -42,7 +42,7 @@
         // i form av någon sessions variabel, såfall hade ni skickat med ID:et från python
         // så kunde vi haft det tillgängligt istället för att skapa ett eget här
         function generateID() {
-            return '_' + Math.random().toString(36).substr(2, 9);
+            return "{{email}}";
         }
 
         // När vi tar emot ett meddelande, skapa en ny <li> med datum-användarID-meddelande
