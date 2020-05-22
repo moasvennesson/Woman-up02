@@ -168,6 +168,12 @@ img{
         
     }
 
+    #box_emergancy {
+      margin-left: 0%;
+      margin-top: 30%;
+      margin-right: 200px;
+    }
+
     
 }
 
@@ -203,21 +209,21 @@ a{
 }
 
 #Help1,#Help2,#Help3{
-    margin: 10px 30px;
     text-align: center;
-    padding:12px;
+    padding:5px;
     font-size: large;
     
 }
 
 #Htext{
     text-align: center;
-    margin:50px;
+    margin:7px;
 }
 
 #Send{
     justify-content: center;
-    width: 80%;
+    width: 100%;
+    margin-top: 8px;
     
 }
 #pos{
@@ -333,6 +339,7 @@ margin: 20px;
   background-repeat: no-repeat;
   background-size: contain;
   justify-content: center;
+  margin-top: 50px;
 }
 
 #Htext {
@@ -358,4 +365,8 @@ margin: 20px;
   margin-left: 22%;
   background-color: white;
   border-radius: 10px;
+}
+
+#box_emergancy {
+  margin-left: 0% !important; 
 }
