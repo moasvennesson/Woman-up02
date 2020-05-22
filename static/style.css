@@ -370,3 +370,10 @@ margin: 20px;
 #box_emergancy {
   margin-left: 0% !important; 
 }
+
+#map_title {
+  margin-top: 5px;
+  
+  text-align: center;
+  margin-right: 9px;
+}
