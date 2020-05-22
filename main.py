@@ -146,6 +146,16 @@ def map():
 Listarop = []
 
 
+@route("/remove")
+def remove_emergency():
+    global Listarop
+    if "logged-in" in request.session:
+        if request.session['logged-in'] == True:
+            email = request.session['email']
+            Listarop.clear()
+            redirect("/map")
+
+
 @route('/emergency',method=['POST', 'GET'])
 def emergency():
     global Listarop
@@ -164,7 +174,7 @@ def emergency():
                 listan = [Etext,uid,datum,pos]
                 Listarop.append(listan)
                 redirect("/map")
-            return template('emergency', email = email, user = uid)
+            return template('emergency', email = email, user = uid,)
     else:
         return "Inte in loggade!"
 
