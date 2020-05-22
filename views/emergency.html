@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/static/style.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <ul id="slide-out" class="sidenav">
@@ -18,8 +20,7 @@
             </div>
             <!---<a href="#user"><img class="circle" src="images/yuna.jpg"></a> -->
             <h3 id="hlogga">Woman Up</h3>
-            <h4 id="user_menu">{{user}}</h4>
-            <a href="#name"><span class="black-text name">Hem</span></a>
+            <a href="#name"><span class="black-text name">John Doe</span></a>
         </div>
     </li>
     <li><a href="/profilsida"></i>Visa profil</a></li>
@@ -32,40 +33,41 @@
     <li><a class="waves-effect" href="/PrivacyPolicy">Privacy Policy</a></li>
     <li><a class="subheader" href="/logout">Logga ut</a></li>
 </ul>
-<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
-<body id="b_Nödrop">
-    <h2 id="Rubrik">
-        Nödrop
-    </h2>
-    <p id="Help1">
-        <button onclick="text1()" id="Hbutton">
-            Hejsan! Ska hem nu, hade du kunnat följa mig?
-        </button>
-    </p>
-    <p id="Help2">
-        <button onclick="text2()" id="Hbutton">
-            Jag är i fara hjälp mig!
-        </button>
-    </p>
-    <p id="Help3">
-        <button onclick="text3()" id="Hbutton">
-            Någon förföljer mig. Kan du hjälpa mig?
-        </button>
-    </p>
-    <form action="emergency" method="POST">
-        <p id="Htext">
-            <input type="text" class="form-control" id="pos" name="pos" required>
-            <textarea rows="4" cols="50" id="Truta" class="form-control" name="Truta" required></textarea>
-        </p>
-        <p>
-            <button id="Send"> Skicka</button>
-        </p>
-    </form>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/static/javascript.js"></script>
-    <script src="/static/emergency.js"></script>
+<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+<div class="box">
+
+    <body id="b_Nödrop">
+        <h2 id="Rubrik"> Nödrop </h2>
+    <p id=" Help1">
+            <button onclick="text1()" id="Hbutton">
+                Hejsan! Ska hem nu, hade du kunnat följa mig?
+            </button>
+            </p>
+            <p id="Help2">
+                <button onclick="text2()" id="Hbutton">
+                    Jag är i fara hjälp mig!
+                </button>
+            </p>
+            <p id="Help3">
+                <button onclick="text3()" id="Hbutton">
+                    Någon förföljer mig. Kan du hjälpa mig?
+                </button>
+            </p>
+            <form action="emergency" method="POST">
+                <p id="Htext">
+                    <input type="text" class="form-control" id="pos" name="pos" required>
+                    <textarea rows="4" cols="50" id="Truta" class="form-control" name="Truta" required></textarea>
+                </p>
+                <p>
+                    <button id="Send"> Skicka</button>
+                </p>
+            </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="/static/javascript.js"></script>
+<script src="/static/emergency.js"></script>
 </body>
 
 </html>
