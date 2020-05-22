@@ -166,16 +166,22 @@ def PrivacyPolicy():
 def FAQ():
     return template('FAQ')
 
+
 @route('/profilsida')
 def profilsida():
     return template('profilsida')
 
-@route('/chatt')
+@route("/chatt")
 def chatt():
     if "logged-in" in request.session:
         if request.session['logged-in'] == True:
             email = request.session['email']
-            return template('chatt', email = email)
+            conn = sqlite3.connect('woman-up.db')
+            c = conn.cursor()
+            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
+            return template('chatt', user = uid, email = email)
     else:
         return "Inte in loggade!"
 
