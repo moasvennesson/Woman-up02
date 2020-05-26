@@ -22,7 +22,7 @@
             <div class="user-view">
                 <div class="background">
                 </div>
-                <h3 id="hlogga">Woman Up</h3>  
+                <h3 id="hlogga">Woman Up</h3>
                 <a href="/startpage"><span class="black-text name">Hem</span></a>
             </div>
         </li>
@@ -31,8 +31,8 @@
         <li>
             <div class="divider"></div>
         </li>
-        <li><a href="/hamburgare">Externa länkar</a></li>
-        <li><a class="waves-effect">FAQ</a></li>
+        <li><a href="/external-links">Externa länkar</a></li>
+        <li><a class="waves-effect" href="/FAQ">FAQ</a></li>
         <li><a class="waves-effect" href="/PrivacyPolicy">Privacy Policy</a></li>
         <li><a class="waves-effect" href="/logout">Logga ut</a></li>
     </ul>
@@ -53,9 +53,10 @@
                 </div>
 
                 <div id="demo-chat" class="input-group mb-3">
-                    <input type="text" id="chatbox" class="form-control"  aria-describedby="button-addon2">
+                    <input type="text" id="chatbox" class="form-control" aria-describedby="button-addon2">
                     <div class="input-group-append">
-                      <button id="send" class="btn btn-outline-secondary" type="button" id="button-addon2">Skicka</button>
+                        <button id="send" class="btn btn-outline-secondary" type="button"
+                            id="button-addon2">Skicka</button>
                     </div>
                 </div>
             </div>
@@ -86,7 +87,7 @@
             ul.innerHTML = "";
 
             // Gå igenom alla användare och lägg till dom igen
-            data.users.map(function(user) {
+            data.users.map(function (user) {
                 let li = document.createElement("li");
                 li.textContent = user.userID;
                 ul.appendChild(li);
@@ -98,15 +99,15 @@
         }
 
         function sendUserPosition(websocket, userID) {
-            navigator.geolocation.getCurrentPosition(function(position){
-              let data = {
-                action:"coordinates", 
-                userID:userID,
-                latitude:position.coords.latitude,
-                longitude:position.coords.longitude
-              };
+            navigator.geolocation.getCurrentPosition(function (position) {
+                let data = {
+                    action: "coordinates",
+                    userID: userID,
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
 
-              websocket.send(JSON.stringify(data));
+                websocket.send(JSON.stringify(data));
             });
         }
 
@@ -116,15 +117,15 @@
         let websocket = new WebSocket("ws://127.0.0.1:5678/");
 
         // När vi connectat (onopen) så skickar vi iväg att vi joinat
-        websocket.onopen = function(event) {
+        websocket.onopen = function (event) {
             let data = { action: "joined", userID: userID };
             console.log("[Websocket]: joined", data)
             websocket.send(JSON.stringify(data));
             sendUserPosition(websocket, userID)
         };
-        
+
         // När vi tar emot ett meddelande från servern
-        websocket.onmessage = function(event) {
+        websocket.onmessage = function (event) {
             let data = JSON.parse(event.data);
             console.log("[Websocket]: received data", data);
 
@@ -143,11 +144,11 @@
             } else if (data.action == "coordinates") {
                 receivedUserPosition(data);
             }
-             
+
         };
 
         // När vi klickar på skicka knappen
-        document.getElementById("send").addEventListener("click", function() {
+        document.getElementById("send").addEventListener("click", function () {
             let msg = document.getElementById("chatbox").value;
             document.getElementById("chatbox").value = "";
 
@@ -164,7 +165,7 @@
         // Innan användare stänger sitt fönster (onbeforeunload) så
         // skickar vi iväg att dom lämnar och sedan stänger vi vår
         // connection till websocket servern
-        window.onbeforeunload = function() {
+        window.onbeforeunload = function () {
             let data = { action: "leave", userID: userID };
             console.log("[Websocket]: closing", data)
             websocket.send(JSON.stringify(data));
@@ -180,9 +181,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="/static/javascript.js"></script>

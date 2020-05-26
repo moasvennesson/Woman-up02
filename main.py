@@ -7,17 +7,17 @@ import datetime
 import json
 import websockets
 abs_app_dir_path = os.path.dirname(os.path.realpath(__file__))
-abs_views_path = os.path.join(abs_app_dir_path, 'views')
-abs_static_path = os.path.join(abs_app_dir_path, 'static')
+abs_views_path = os.path.join(abs_app_dir_path, "views")
+abs_static_path = os.path.join(abs_app_dir_path, "static")
 TEMPLATE_PATH.insert(0, abs_views_path)
 
 
 # Settings for the session
 session_opts = {
-    'session.type': 'file',
-    'session.cookie_expires': True,
-    'session.data_dir': './data',
-    'session.auto': True
+    "session.type": "file",
+    "session.cookie_expires": True,
+    "session.data_dir": "./data",
+    "session.auto": True
 }
 
 
@@ -26,126 +26,115 @@ app = beaker.middleware.SessionMiddleware(app(), session_opts)
 
 
 # Added hook for easier access to session
-@hook('before_request')
+@hook("before_request")
 def setup_request():
-    request.session = request.environ['beaker.session']
+    request.session = request.environ["beaker.session"]
 
 
-@route('/static/<filename>')
+@route("/static/<filename>")
 def server_static(filename):
     return static_file(filename, root=abs_static_path)
 
 
-@route('/startpage')
+@route("/startpage")
 def startpage():
     if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            email = request.session['email']
-            conn = sqlite3.connect('woman-up.db')
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
+            conn = sqlite3.connect("woman-up.db")
             c = conn.cursor()
-            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
             uid=str(user).strip("(,')")
-            return template('startpage', user = uid)
+            return template("startpage", user = uid)
             
     else:
-        return "Inte in loggade!"
-
-
-@route('/', method=['POST', 'GET']) 
-def login():
-    ''' Loginsidan, hämtar email och password från HTML formuläret,
-    ansluter till sqlite databasen woman-up och kollar om de uppgifterna finns'''
-    msg = ""
-    if request.method == 'POST':
-        email = getattr(request.forms, 'email')
-        password = getattr(request.forms, 'password')
-        conn = sqlite3.connect('woman-up.db')
-        c = conn.cursor()
-        c.execute('SELECT * FROM user WHERE email = ? and password = ?',(email, password))
-        user = c.fetchone() 
-        if user:
-            # Save logged in user in session
-            request.session['logged-in'] = True
-            request.session['email'] = email
-            inloggad = email
-            print(inloggad)
-
-            redirect('/startpage') 
-        else:
-            msg = 'Inkorrekt email eller lösenord'
-
-    return template('index', msg=msg)
-
-
-@route('/logout')
-def logout():
-    if "logged-in" in request.session:
-        request.session['logged-in'] = False
         redirect("/")
 
 
-@route('/register', method=['POST', 'GET'])
-def register():
-    '''Registerar en ny användare i databasen och kollar om mailen redan är registrerad'''
+@route("/", method=["POST", "GET"]) 
+def login():
+    '''The login page, checks if the e-mail and password in the html form is in the sqlite database'''
     msg = ""
-    if request.method =='POST':
-        firstname = getattr(request.forms, 'firstname')
-        lastname = getattr(request.forms, 'lastname')
-        phonenumber = getattr(request.forms, 'phonenumber')
-        password = getattr(request.forms, 'password')
-        email = getattr(request.forms, 'email')
-        conn = sqlite3.connect('woman-up.db')
+    if request.method == "POST":
+        email = getattr(request.forms, "email")
+        password = getattr(request.forms, "password")
+        conn = sqlite3.connect("woman-up.db")
         c = conn.cursor()
-        c.execute('SELECT * FROM user WHERE email = ?', (email,))
-        if c.fetchone():
-            msg = 'Den email adressen är redan registrerad'
-        elif not password or not email:
-            msg = 'Vänligen uppge all uppgifter'
+        c.execute("SELECT * FROM user WHERE email = ? and password = ?",(email, password))
+        user = c.fetchone() 
+        if user:
+            # Save logged in user in session
+            request.session["logged-in"] = True
+            request.session["email"] = email
+            inloggad = email
+            print(inloggad)
+
+            redirect("/startpage") 
         else:
-            c.execute('INSERT INTO user VALUES(?,?,?,?,?,?,?,?)',(firstname, lastname, phonenumber, password, email, None, None, None))
-            conn.commit()
-            redirect('/updateaccount')
+            msg = "Inkorrekt email eller lösenord"
 
-    return template('register', msg=msg)
+    return template("index", msg=msg)
 
 
-@route('/updateaccount')
-def updateaccount():
-    return template('updateaccount')
-
-
-@route('/login-status')
-def login_status():
-    '''Demo page to see if a user logged in'''
+@route("/logout")
+def logout():
     if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            return "User logged in with: " + request.session['email']
-    else:
-        return "Not logged in!"
+        request.session["logged-in"] = False
+        redirect("/")
 
 
-@route('/FullPrivacyPolicy')
+@route("/register", method=["POST", "GET"])
+def register():
+    '''Registers a new user in the database and also checks if the e-mail is already in use'''
+    msg = ""
+    if request.method =="POST":
+        firstname = getattr(request.forms, "firstname")
+        lastname = getattr(request.forms, "lastname")
+        phonenumber = getattr(request.forms, "phonenumber")
+        password = getattr(request.forms, "password")
+        email = getattr(request.forms, "email")
+        conn = sqlite3.connect("woman-up.db")
+        c = conn.cursor()
+        c.execute("SELECT * FROM user WHERE email = ?", (email,))
+        if c.fetchone():
+            msg = "Den email adressen är redan registrerad"
+        elif not password or not email:
+            msg = "Vänligen uppge all uppgifter"
+        else:
+            c.execute("INSERT INTO user VALUES(?,?,?,?,?,?,?,?)",(firstname, lastname, phonenumber, password, email, None, None, None))
+            conn.commit()
+            redirect("/updateaccount")
+
+    return template("register", msg=msg)
+
+
+@route("/updateaccount")
+def updateaccount():
+    return template("updateaccount")
+
+
+@route("/FullPrivacyPolicy")
 def popup():
-    return template('FullPrivacyPolicy')
+    return template("FullPrivacyPolicy")
 
 
-@route('/map', method=['POST', 'GET'])
+@route("/map", method=["POST", "GET"])
 def map(): 
     global Listarop
     if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            email = request.session['email']
-            conn = sqlite3.connect('woman-up.db')
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
+            conn = sqlite3.connect("woman-up.db")
             c = conn.cursor()
-            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
             uid=str(user).strip("(,')")
             print(uid)
             print(Listarop)
-            return template('map',Listarop=Listarop, user = uid)
+            return template("map",Listarop=Listarop, user = uid)
     else:
-        return "Inte in loggade!"
+        redirect("/")
 
 Listarop = []
 
@@ -154,84 +143,85 @@ Listarop = []
 def remove_emergency():
     global Listarop
     if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            email = request.session['email']
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
             Listarop.clear()
             redirect("/map")
 
 
-@route('/emergency',method=['POST', 'GET'])
+@route("/emergency",method=["POST", "GET"])
 def emergency():
     global Listarop
     if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            email = request.session['email']
-            conn = sqlite3.connect('woman-up.db')
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
+            conn = sqlite3.connect("woman-up.db")
             c = conn.cursor()
-            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
             uid=str(user).strip("(,')")
-            if request.method == 'POST':
-                Etext=getattr(request.forms, 'Truta')
+            if request.method == "POST":
+                Etext=getattr(request.forms, "Truta")
                 datum = datetime.datetime.now()
-                pos = getattr(request.forms, 'pos')
+                pos = getattr(request.forms, "pos")
                 listan = [Etext,uid,datum,pos]
                 Listarop.append(listan)
                 redirect("/map")
-            return template('emergency', email = email, user = uid,)
+            return template("emergency", email = email, user = uid,)
+    
     else:
-        return "Inte in loggade!"
+        redirect("/")
 
 
-@route('/hamburgare')
+@route("/external-links")
 def hamburgare():
     if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            email = request.session['email']
-            conn = sqlite3.connect('woman-up.db')
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
+            conn = sqlite3.connect("woman-up.db")
             c = conn.cursor()
-            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
             uid=str(user).strip("(,')")
-            return template('hamburgare', user = uid)
+            return template("hamburgare", user = uid)
             
     else:
-        return "Inte in loggade!"
+        redirect("/")
 
 
-@route('/PrivacyPolicy')
+@route("/PrivacyPolicy")
 def PrivacyPolicy():
     if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            email = request.session['email']
-            conn = sqlite3.connect('woman-up.db')
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
+            conn = sqlite3.connect("woman-up.db")
             c = conn.cursor()
-            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
             uid=str(user).strip("(,')")
-            return template('PrivacyPolicy', user = uid)
-            
+            return template("PrivacyPolicy", user = uid)
+        
     else:
-        return "Inte in loggade!"
+        redirect("/")
     
 
-@route('/FAQ')
+@route("/FAQ")
 def FAQ():
     if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            email = request.session['email']
-            conn = sqlite3.connect('woman-up.db')
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
+            conn = sqlite3.connect("woman-up.db")
             c = conn.cursor()
-            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
             uid=str(user).strip("(,')")
-            return template('FAQ', user = uid)
+            return template("FAQ", user = uid)
             
     else:
-        return "Inte in loggade!"
+        redirect("/")
     
 
-@route('/profilsida')
+@route("/profilsida")
 def profilsida():
     if "logged-in" in request.session:
         if request.session['logged-in'] == True:
@@ -244,22 +234,22 @@ def profilsida():
             return template('profilsida', user = uid)
             
     else:
-        return "Inte in loggade!"
+        redirect("/")
     
 
 @route("/chatt")
 def chatt():
     if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            email = request.session['email']
-            conn = sqlite3.connect('woman-up.db')
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
+            conn = sqlite3.connect("woman-up.db")
             c = conn.cursor()
-            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
+            c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
             uid=str(user).strip("(,')")
-            return template('chatt', user = uid, email = email)
+            return template("chatt", user = uid, email = email)
     else:
-        return "Inte in loggade!"
+        redirect("/")
 
 
-run(app=app, host='localhost', port=9087, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+run(app=app, host="localhost", port=9087, debug=True, reloader=True) # Updated according to documentation with 'app=app'

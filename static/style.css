@@ -272,47 +272,6 @@ a{
   margin: 10px 0;
 }
 
-/* Mörkare chatt rutor */
-.darker {
-  border-color: #ccc;
-  background-color: #ddd;
-}
-
-/* Tar bort floats */
-.chat-container::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-/* Bilder */
-.chat-container img {
-  float: left;
-  max-width: 60px;
-  width: 100%;
-  margin-right: 20px;
-  border-radius: 50%;
-}
-
-/* bilder till höger */
-.chat-container img.right {
-  float: right;
-  margin-left: 20px;
-  margin-right:0;
-}
-
-/* tid texten*/
-.time-right {
-  float: right;
-  color: #aaa;
-}
-
-/* tid texten till höger */
-.time-left {
-  float: left;
-  color: #999;
-} 
-
 /* Privacy policy*/
 #PP{
 margin: 20px;
@@ -373,7 +332,6 @@ margin: 20px;
 
 #map_title {
   margin-top: 5px;
-  
   text-align: center;
   margin-right: 9px;
 }
