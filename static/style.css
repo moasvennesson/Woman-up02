@@ -245,11 +245,6 @@ a{
   display:none;
 }
 
-
-
-
-
-
 #wrapper {
     margin: 0;
     width: 100%;
@@ -301,7 +296,6 @@ margin: 20px;
   background-repeat: no-repeat;
   background-size: contain;
   justify-content: center;
-  margin-top: 50px;
 }
 
 #Htext {

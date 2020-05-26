@@ -221,22 +221,6 @@ def FAQ():
         redirect("/")
     
 
-@route("/profilsida")
-def profilsida():
-    if "logged-in" in request.session:
-        if request.session['logged-in'] == True:
-            email = request.session['email']
-            conn = sqlite3.connect('woman-up.db')
-            c = conn.cursor()
-            c.execute('SELECT first_name FROM user WHERE email = ?', (email,))
-            user = c.fetchone()
-            uid=str(user).strip("(,')")
-            return template('profilsida', user = uid)
-            
-    else:
-        redirect("/")
-    
-
 @route("/chatt")
 def chatt():
     if "logged-in" in request.session:
@@ -252,4 +236,4 @@ def chatt():
         redirect("/")
 
 
-run(app=app, host="localhost", port=9087, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+run(app=app, host="localhost", port=9090, debug=True, reloader=True) # Updated according to documentation with 'app=app'
