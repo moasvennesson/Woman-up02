@@ -252,4 +252,4 @@ def chatt():
         redirect("/")
 
 
-run(app=app, host="localhost", port=9087, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+run(app=app, host="localhost", port=9088, debug=True, reloader=True) # Updated according to documentation with 'app=app'

@@ -40,7 +40,7 @@
     <div id="wrapper">
         <div class="container" id="chatt-box">
             <div class="jumbotron">
-                <h3><a href="/startpage">&larr; {{user}}</a></h3>
+                <h3><a id="color_name" href="/startpage">&larr; {{user}} </a></h3>
                 <div class="chat-container">
 
                     <p>users:</p>
@@ -62,6 +62,9 @@
         </div>
 
     </div>
+    <div id="bild">
+        <img src="/static/logga.jpg" alt="">
+    </div> 
     <script>
         // Ger våra användare ett unikt ID, detta kanske borde komma från servern istället
         // i form av någon sessions variabel, såfall hade ni skickat med ID:et från python

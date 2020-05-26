@@ -247,7 +247,9 @@ a{
 
 
 
-
+.btn, .btn-large, .btn-small {
+  background-color: #9C27B0; 
+}
 
 
 #wrapper {
@@ -261,9 +263,11 @@ a{
 }
 
 #chatt-box {
-    padding-top: 10%;
+    padding-top: 8%;
     width: 50%;
     justify-content: center;
+    z-index: 2;
+    position: fixed;
 }
 
 /* Chatt rutor */
@@ -337,4 +341,14 @@ margin: 20px;
   margin-top: 5px;
   text-align: center;
   margin-right: 9px;
+}
+
+.jumbotron {
+  background-color: white;
+  box-shadow: 0 0 10px #333333;
+  border-radius: 15px;
+}
+
+#color_name {
+  color: #7b32cb;
 }
