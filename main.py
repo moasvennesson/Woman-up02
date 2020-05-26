@@ -91,7 +91,6 @@ def register():
     if request.method =="POST":
         firstname = getattr(request.forms, "firstname")
         lastname = getattr(request.forms, "lastname")
-        phonenumber = getattr(request.forms, "phonenumber")
         password = getattr(request.forms, "password")
         email = getattr(request.forms, "email")
         conn = sqlite3.connect("woman-up.db")
@@ -102,7 +101,7 @@ def register():
         elif not password or not email:
             msg = "Vänligen uppge all uppgifter"
         else:
-            c.execute("INSERT INTO user VALUES(?,?,?,?,?,?,?,?)",(firstname, lastname, phonenumber, password, email, None, None, None))
+            c.execute("INSERT INTO user VALUES(?,?,?,?)",(firstname, lastname, password, email,))
             conn.commit()
             redirect("/updateaccount")
 
@@ -183,7 +182,7 @@ def hamburgare():
             c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
             uid=str(user).strip("(,')")
-            return template("hamburgare", user = uid)
+            return template("external-links", user = uid)
             
     else:
         redirect("/")
