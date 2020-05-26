@@ -42,7 +42,7 @@ body {
   margin-bottom: 10px;
   z-index: 2;
   position: fixed;
-  margin-left: 25%;
+  margin-left: 23%;
  
 
 }
@@ -183,6 +183,7 @@ img{
     text-align: center;
     font-size: 50px;
     box-shadow: 3px 2px rgb(199, 199, 199);
+    font-family: 'Raleway', sans-serif;
 }
 
 a{
@@ -200,6 +201,8 @@ a{
 #pNödrop, #pChatt, #pKarta {
     margin: 70px;
     text-align: center;
+    font-family: 'Raleway', sans-serif;
+    
 }
 
 /*CSS till nödrops sidan*/
