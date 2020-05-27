@@ -2,14 +2,14 @@
 <html lang="sv">
 
     <head>
-        <meta charset="utf-8">
+        <meta charset=utf-8>
         <title>Inställningar</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/static/style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="/static/style.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
-    </head>
+      </head>
     
 
 <body>
@@ -33,15 +33,15 @@
         <li><a class="waves-effect" href="/logout">Logga ut</a></li>
     </ul>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    <div class="box">
+    <div>
         <form action="/settings" method="POST">
-            <h2>Ändra ditt lösenord</h2>
-            <div class="form-group">
+            <h5>Ändra ditt lösenord</h5>
+            <div class="form-row">
                 <label for="password">Ditt nuvarande lösenörd</label>
                 <input type="password" class="form-control" id="password" name="password">
                 <p id="error">{{msg}}</p>
             </div>
-            <div class="form-group">
+            <div class="form-row">
                 <label for="password">Nytt lösenord</label>
                 <input pattern=".{8,}" type="password" class="form-control" id="new_password" name="new_password">
             </div>
