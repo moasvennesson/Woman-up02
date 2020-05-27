@@ -351,3 +351,12 @@ margin: 20px;
 #color_name {
   color: #7b32cb;
 }
+
+#success_msg {
+  color: green;
+}
+
+#remove_button {
+    width: 100%;
+    color: #7b32cb;
+}

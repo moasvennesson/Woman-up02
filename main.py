@@ -116,6 +116,7 @@ def updateaccount():
 @route("/settings", method=["POST", "GET"])
 def settings():
     msg = ""
+    success_msg =""
     if "logged-in" in request.session:
         if request.session["logged-in"] == True:
             email = request.session["email"]
@@ -128,15 +129,15 @@ def settings():
                 password = getattr(request.forms, "password")
                 new_password = getattr(request.forms, "new_password")
                 c.execute("SELECT * FROM user WHERE email = ? and password = ?",(email, password))
-                user = c.fetchone()
-                uid=str(user).strip("(,')")
+                found_user = c.fetchone()
                 if user:
                     c.execute("UPDATE user SET password = ? WHERE email = ?",(email, new_password))
                     conn.commit()
+                    success_msg = "Lösenordet är bytt"
                 else:
                     msg = "Fel lösenord"
        
-        return template("settings", msg=msg, user=uid)
+        return template("settings", msg=msg, user=uid,success_msg=success_msg)
 
     else:
         redirect("/")
@@ -264,4 +265,4 @@ def chatt():
         redirect("/")
 
 
-run(app=app, host="localhost", port=9090, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+run(app=app, host="localhost", port=9091, debug=True, reloader=True) # Updated according to documentation with 'app=app'
