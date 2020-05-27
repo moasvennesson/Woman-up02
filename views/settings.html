@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Inställningar</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/static/style.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
+    </head>
+    
+
+<body>
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                </div>
+                <h3 id="hlogga">Woman Up</h3>
+                <h4 id="user_menu">{{user}}</h4>
+                <a href="/startpage"><span class="black-text name">Hem</span></a>
+            </div>
+        </li>
+        <li><a href="/settings">Inställningar</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a href="/external-links">Externa länkar</a></li>
+        <li><a class="waves-effect" href="/FAQ">FAQ</a></li>
+        <li><a class="waves-effect" href="/PrivacyPolicy">Privacy Policy</a></li>
+        <li><a class="waves-effect" href="/logout">Logga ut</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <div class="box">
+        <form action="/settings" method="POST">
+            <h2>Ändra ditt lösenord</h2>
+            <div class="form-group">
+                <label for="password">Ditt nuvarande lösenörd</label>
+                <input type="password" class="form-control" id="password" name="password">
+                <p id="error">{{msg}}</p>
+            </div>
+            <div class="form-group">
+                <label for="password">Nytt lösenord</label>
+                <input pattern=".{8,}" type="password" class="form-control" id="new_password" name="new_password">
+            </div>
+            <input type="submit" value="Bekräfta" id="login-button">
+            <p id="success_msg">{{success_msg}}</p>
+        </form>
+        <div class>
+            <a href="/remove" id="remove_button" class="btn btn-primary">Ta bort ditt nödrop</a>
+        </div>
+        <div class="länkar">
+            <a href="mailto: 02.woman.up@gmail.com" id="kontakt">Kontakta oss</a>
+        </div>
+    </div>
+
+    <div id="bild">
+        <img src="/static/logga.jpg" alt="">
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/static/javascript.js"></script>
+</body>
+
+</html>
