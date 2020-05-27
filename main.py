@@ -113,6 +113,35 @@ def updateaccount():
     return template("updateaccount")
 
 
+@route("/settings", method=["POST", "GET"])
+def settings():
+    msg = ""
+    if "logged-in" in request.session:
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
+            conn = sqlite3.connect("woman-up.db")
+            c = conn.cursor()
+            c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
+            if request.method == "POST":
+                password = getattr(request.forms, "password")
+                new_password = getattr(request.forms, "new_password")
+                c.execute("SELECT * FROM user WHERE email = ? and password = ?",(email, password))
+                user = c.fetchone()
+                uid=str(user).strip("(,')")
+                if user:
+                    c.execute("UPDATE user SET password = ? WHERE email = ?",(email, new_password))
+                    conn.commit()
+                else:
+                    msg = "Fel lösenord"
+       
+        return template("settings", msg=msg, user=uid)
+
+    else:
+        redirect("/")
+
+
 @route("/FullPrivacyPolicy")
 def popup():
     return template("FullPrivacyPolicy")
