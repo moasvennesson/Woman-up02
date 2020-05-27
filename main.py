@@ -130,10 +130,13 @@ def settings():
                 new_password = getattr(request.forms, "new_password")
                 c.execute("SELECT * FROM user WHERE email = ? and password = ?",(email, password))
                 found_user = c.fetchone()
-                if user:
-                    c.execute("UPDATE user SET password = ? WHERE email = ?",(email, new_password))
+                if found_user:
+                    sql_update_query = """Update user set password = ? where email = ?"""
+                    data = (new_password, email)
+                    c.execute(sql_update_query,data)
                     conn.commit()
-                    success_msg = "Lösenordet är bytt"
+                    success_msg = "Lyckades byta lösenord"
+                    c.close()
                 else:
                     msg = "Fel lösenord"
        
@@ -265,4 +268,4 @@ def chatt():
         redirect("/")
 
 
-run(app=app, host="localhost", port=9091, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+run(app=app, host="localhost", port=8081, debug=True, reloader=True) # Updated according to documentation with 'app=app'

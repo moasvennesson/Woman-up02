@@ -238,6 +238,7 @@ a{
     height: 700px; 
     width: 400px;
     margin: auto;
+    z-index: 2;
 
 }
 
@@ -358,5 +359,10 @@ margin: 20px;
 
 #remove_button {
     width: 100%;
-    color: #7b32cb;
+    background-color: #7b32cb;
+    color: white;
+}
+
+#hamburger {
+  z-index: 1;
 }
