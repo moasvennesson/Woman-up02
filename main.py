@@ -113,6 +113,39 @@ def updateaccount():
     return template("updateaccount")
 
 
+@route("/settings", method=["POST", "GET"])
+def settings():
+    msg = ""
+    success_msg =""
+    if "logged-in" in request.session:
+        if request.session["logged-in"] == True:
+            email = request.session["email"]
+            conn = sqlite3.connect("woman-up.db")
+            c = conn.cursor()
+            c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
+            user = c.fetchone()
+            uid=str(user).strip("(,')")
+            if request.method == "POST":
+                password = getattr(request.forms, "password")
+                new_password = getattr(request.forms, "new_password")
+                c.execute("SELECT * FROM user WHERE email = ? and password = ?",(email, password))
+                found_user = c.fetchone()
+                if found_user:
+                    sql_update_query = """Update user set password = ? where email = ?"""
+                    data = (new_password, email)
+                    c.execute(sql_update_query,data)
+                    conn.commit()
+                    success_msg = "Lyckades byta lösenord"
+                    c.close()
+                else:
+                    msg = "Fel lösenord"
+       
+        return template("settings", msg=msg, user=uid,success_msg=success_msg)
+
+    else:
+        redirect("/")
+
+
 @route("/FullPrivacyPolicy")
 def popup():
     return template("FullPrivacyPolicy")
@@ -235,4 +268,4 @@ def chatt():
         redirect("/")
 
 
-run(app=app, host="localhost", port=9090, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+run(app=app, host="localhost", port=8081, debug=True, reloader=True) # Updated according to documentation with 'app=app'

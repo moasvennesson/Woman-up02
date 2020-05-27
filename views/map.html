@@ -22,26 +22,28 @@
     <h2 id="map_title">
         Woman Up
     </h2>
-    <ul id="slide-out" class="sidenav">
-        <li>
-            <div class="user-view">
-                <div class="background">
+    <div id="hamburger">
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                    </div>
+                    <h3 id="hlogga">Woman Up</h3>
+                    <h4 id="user_menu">{{user}}</h4>
+                    <a href="/startpage"><span class="black-text name">Hem</span></a>
                 </div>
-                <h3 id="hlogga">Woman Up</h3>
-                <h4 id="user_menu">{{user}}</h4>
-                <a href="/startpage"><span class="black-text name">Hem</span></a>
-            </div>
-        </li>
-        <li><a href="#!">Inställningar</a></li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li><a href="/external-links">Externa länkar</a></li>
-        <li><a class="waves-effect" href="/FAQ">FAQ</a></li>
-        <li><a class="waves-effect" href="/PrivacyPolicy">Privacy Policy</a></li>
-        <li><a class="waves-effect" href="remove">Ta bort nödrop</a></li>
-        <li><a class="waves-effect" href="/logout">Logga ut</a></li>
-    </ul>
+            </li>
+            <li><a href="/settings">Inställningar</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="/external-links">Externa länkar</a></li>
+            <li><a class="waves-effect" href="/FAQ">FAQ</a></li>
+            <li><a class="waves-effect" href="/PrivacyPolicy">Privacy Policy</a></li>
+            <li><a class="waves-effect" href="remove">Ta bort nödrop</a></li>
+            <li><a class="waves-effect" href="/logout">Logga ut</a></li>
+        </ul>
+    </div>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <p id="SendName">
         % for user in Listarop:
