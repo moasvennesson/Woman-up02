@@ -1,3 +1,24 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+img{
+  max-height: 90%;
+  max-width: 90%;
+  z-index: 1;
+  position: fixed;
+  margin-top: 90%;
+}
+
+a{
+  text-decoration: none;
+  color: purple;
+}
+
 .form-group {
     display: block;
     height: 80px;
@@ -6,13 +27,6 @@
     background-color: white;
 }
 
-html {
-  height: 100%;
-}
-body {
-  min-height: 100%;
-
-}
 .box {
     box-sizing: border-box;
     max-width: 320px;
@@ -24,9 +38,102 @@ body {
     margin-left: 37%;
     background-color: white;
     border-radius: 10px;
-
 }
-#register_page {
+
+.form-check{
+  padding:10px,;
+  margin:5px;
+}
+
+.links {
+    padding: 5px;
+}
+
+.placement {
+  z-index: 2;
+  position: absolute;
+}
+
+.color {
+  background-image: linear-gradient(to left bottom, #e752d4, #de60d9, #d56bdd, #cc75e0, #c47ee1, #bc7adf, #b477de, #ac73dc, #a163d8, #9554d4, #8843cf, #7b32cb);
+  color:white;
+}
+
+.material-icons {
+    font-size: 30px;
+    color: black;
+    padding: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px #333333;
+    border-radius: 50%;
+    margin: 15px;
+}
+
+.sidenav .user-view .name {
+    margin-top: 85px;
+    padding-left: 14px;
+}
+
+.FAQ-boxes {
+  margin-top: 15%;
+  padding: 10px;
+}
+
+.card .card-content .card-title i {
+  margin: auto;
+  
+}
+
+.card {
+  max-width: 75%;
+  max-height: 20%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.card-image.waves-effect.waves-block.waves-light {
+  margin-top: 15px;
+}
+
+.btn, .btn-large, .btn-small {
+  background-color: #9C27B0; 
+}
+
+.chat-container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.faqHeader {
+  font-size: 27px;
+  margin: 20px;
+  z-index: 2;
+  position: fixed;
+}
+
+.Ubox{
+  box-sizing: border-box;
+  max-width: 320px;
+  box-shadow: 0 0 10px #333333;
+  padding:10px;
+  margin-top: 50%;
+  z-index: 2;
+  position: fixed;
+  margin-left: 22%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.jumbotron {
+  background-color: white;
+  box-shadow: 0 0 10px #333333;
+  border-radius: 15px;
+}
+
+#register-page {
   margin: 0;
   width: 100%;
   height: 100%;
@@ -43,37 +150,17 @@ body {
   z-index: 2;
   position: fixed;
   margin-left: 23%;
- 
-
-}
-
-.form-check{
-  padding:10px,;
-  margin:5px;
-}
-
-.länkar {
-    padding: 5px;
 }
 
 #login-button {
   width: 100%;
 }
 
-#kontakt {
+#contact {
     margin-left: 100px;
 }
 
-img{
-  max-height: 90%;
-  max-width: 90%;
-  z-index: 1;
-  position: fixed;
-  margin-top: 90%;
-
-}
-
-#mini-logga {
+#mini-logo {
   max-width: 25% !important;
   max-height: 25% !important;
   position: relative !important;
@@ -82,60 +169,10 @@ img{
   margin-right: 9px;
 }
 
-.placering {
-  z-index: 2;
-  position: absolute;
-}
-
-.färg {
-  background-image: linear-gradient(to left bottom, #e752d4, #de60d9, #d56bdd, #cc75e0, #c47ee1, #bc7adf, #b477de, #ac73dc, #a163d8, #9554d4, #8843cf, #7b32cb);
-  color:white;
-}
-
-.material-icons {
-    font-size: 30px;
-    color: black;
-    padding: 5px;
-    box-sizing: border-box;
-    box-shadow: 0 0 5px #333333;
-    border-radius: 50%;
-    margin: 15px;
-}
-.sidenav .user-view .name {
-    margin-top: 85px;
-    padding-left: 14px;
-}
-
-@media only screen and (max-width: 980px) {
-    #chatt-box{
-       
-        min-width:100%; 
-        display: inline-block;}
-    
-    #profil-knapp{
-        width: 40%;
-        margin-left: 30%;
-        margin-right: 30%;
-
-    }
-  }
-
 #UMO {
     max-height: 60%;
     max-width: 60%;
     margin-top: 5%;
-  }
-
-  #Länk_card {
-    max-width: 75%;
-    max-height: 20%;
-    margin: auto;
-    box-sizing: border-box;
-  }
-
-  .card .card-content .card-title i {
-    margin: auto;
-    
   }
 
   #tjejjouren {
@@ -144,7 +181,7 @@ img{
     margin-top: 5%;
   }
 
-  #storlänk {
+  #big-link {
     margin-bottom: 15px;
   }
 
@@ -154,31 +191,7 @@ img{
     margin-top: 5%;
   }
 
-  .card-image.waves-effect.waves-block.waves-light {
-      margin-top: 15px;
-  }
-@media only screen and (max-width: 750px) {
-    
-    .box {
-        justify-content: center;
-        display: inline-block;
-        margin-left: 12%;
-        min-width: 70%;
-        margin-top: 35%;
-        
-    }
-
-    #box_emergancy {
-      margin-left: 0%;
-      margin-top: 30%;
-      margin-right: 200px;
-    }
-
-    
-}
-
-/* CSS till startpage*/
-#Chatt, #Karta, #Nödrop{
+#chat-link, #map-link, #emergency-link {
     padding: 20px 50px 20px 50px;
     text-align: center;
     font-size: 50px;
@@ -186,27 +199,23 @@ img{
     font-family: 'Raleway', sans-serif;
 }
 
-a{
-    text-decoration: none;
-}
-
-#Nödrop{
+#emergency-link{
     padding:20px 30px 20px 30px;
 }
 
-#Chatt{
+#chat-link{
     padding: 20px 52px 20px 52px;
 }
 
-#pNödrop, #pChatt, #pKarta {
+#pEmergency, #pChat, #pMap {
     margin: 70px;
     text-align: center;
     font-family: 'Raleway', sans-serif;
     
 }
 
-/*CSS till nödrops sidan*/
-#Rubrik{
+
+#heading {
     font-size: 30px;
     text-align: center;
 }
@@ -229,11 +238,11 @@ a{
     margin-top: 8px;
     
 }
+
 #pos{
   display: none;
 }
 
-/*CSS till karta */
 #mapid{
     height: 700px; 
     width: 400px;
@@ -242,16 +251,12 @@ a{
 
 }
 
-#SendName,#Pos,#text,#datum{
+#SendName,#Pos,#text,#date{
   display:none;
 }
 
 #Hmap{
   display: inline-block;
-}
-
-.btn, .btn-large, .btn-small {
-  background-color: #9C27B0; 
 }
 
 #Mchat{
@@ -271,11 +276,6 @@ a{
   font-family: 'Raleway', sans-serif;
   
 }
-a{
-  color: purple;
-  
-  
-}
 
 #wrapper {
     margin: 0;
@@ -283,11 +283,11 @@ a{
     height: 100%;
 }
 
-#registering {
+#register {
     padding: 10px;
 }
 
-#chatt-box {
+#chat-box {
     padding-top: 8%;
     width: 50%;
     justify-content: center;
@@ -295,32 +295,15 @@ a{
     position: fixed;
 }
 
-/* Chatt rutor */
-.chat-container {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
-}
-/* Setting */
 #Msetting{
   margin: 40px;
 }
 
-/* Privacy policy*/
 #PP{
 margin: 20px;
 }
 
-.faqHeader {
-  font-size: 27px;
-  margin: 20px;
-  z-index: 2;
-  position: fixed;
-}
-
-#hlogga {
+#menu-title {
   font-family: 'Raleway', sans-serif;
 }
 
@@ -328,7 +311,7 @@ margin: 20px;
   font-family: 'Raleway', sans-serif;
 }
 
-#b_Nödrop {
+#b_emergency {
   background-image: url(/static/logga.jpg);
   background-position: center;
   background-repeat: no-repeat;
@@ -339,26 +322,12 @@ margin: 20px;
 #Htext {
   background-color:white ;
 }
-/* FAQ frrågor*/
+
 #faqAccordion{
   z-index: 2;
   position: fixed;
   margin: 60px;
   margin-left:5px;
-}
-
-/* Update account*/
-.Ubox{
-  box-sizing: border-box;
-  max-width: 320px;
-  box-shadow: 0 0 10px #333333;
-  padding:10px;
-  margin-top: 50%;
-  z-index: 2;
-  position: fixed;
-  margin-left: 22%;
-  background-color: white;
-  border-radius: 10px;
 }
 
 #box_emergancy {
@@ -372,13 +341,7 @@ margin: 20px;
   
 }
 
-.jumbotron {
-  background-color: white;
-  box-shadow: 0 0 10px #333333;
-  border-radius: 15px;
-}
-
-#color_name {
+#color-name {
   color: #7b32cb;
 }
 
@@ -396,7 +359,31 @@ margin: 20px;
   z-index: 1;
 }
 
-.FAQ_rutor {
-  margin-top: 15%;
-  padding: 10px;
+@media only screen and (max-width: 980px) {
+  #chat-box{
+      min-width:100%; 
+      display: inline-block;
+    }
+  
+  #profil-knapp{
+      width: 40%;
+      margin-left: 30%;
+      margin-right: 30%;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .box {
+      justify-content: center;
+      display: inline-block;
+      margin-left: 12%;
+      min-width: 70%;
+      margin-top: 35%;
+  }
+
+  #box_emergancy {
+    margin-left: 0%;
+    margin-top: 30%;
+    margin-right: 200px;
+  }  
 }

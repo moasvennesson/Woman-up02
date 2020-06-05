@@ -8,10 +8,10 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
     <title>Woman-Up</title>
 </head>
 
@@ -22,7 +22,7 @@
             <div class="user-view">
                 <div class="background">
                 </div>
-                <h3 id="hlogga">Woman Up</h3>
+                <h3 id="menu-title">Woman Up</h3>
                 <a href="/startpage"><span class="black-text name">Hem</span></a>
             </div>
         </li>
@@ -38,9 +38,9 @@
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
     <div id="wrapper">
-        <div class="container" id="chatt-box">
+        <div class="container" id="chat-box">
             <div class="jumbotron">
-                <h3><a id="color_name" href="/startpage">&larr; {{user}} </a></h3>
+                <h3><a id="color-name" href="/startpage">&larr; {{user}} </a></h3>
                 <div class="chat-container">
 
                     <p>Användare:</p>
@@ -52,28 +52,21 @@
                 </div>
 
                 <div id="demo-chat" class="input-group mb-3">
-                    <input type="text" id="chatbox" class="form-control" aria-describedby="button-addon2">
+                    <input type="text" id="chatbox" class="form-control" aria-describedby="send">
                     <div class="input-group-append">
-                        <button id="send" class="btn btn-outline-secondary" type="button"
-                            id="button-addon2">Skicka</button>
+                        <button id="send" class="btn btn-outline-secondary" type="button">Skicka</button>
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
-    <div id="bild">
+    <div id="logo">
         <img src="/static/logga.jpg" alt="">
-    </div> 
+    </div>
     <script>
-        // Ger våra användare ett unikt ID, detta kanske borde komma från servern istället
-        // i form av någon sessions variabel, såfall hade ni skickat med ID:et från python
-        // så kunde vi haft det tillgängligt istället för att skapa ett eget här
-        function generateID() {
-            return "{{email}}";
-        }
 
-        // När vi tar emot ett meddelande, skapa en ny <li> med datum-användarID-meddelande
+        // When we receive a message, creates a new <li> with date-userID-message 
         function receivedMessage(data) {
             let ul = document.getElementById("chat");
             let li = document.createElement("li");
@@ -82,13 +75,11 @@
             ul.appendChild(li);
         }
 
-        // Återställ användarlistan, görs när dom joinar eller lämnar
+        // Resets the list of users, whenever somone connects or leaves
         function resetUserList(data) {
-            // Töm alla användare
             let ul = document.getElementById("users");
             ul.innerHTML = "";
 
-            // Gå igenom alla användare och lägg till dom igen
             data.users.map(function (user) {
                 let li = document.createElement("li");
                 li.textContent = user.userID;
@@ -113,12 +104,12 @@
             });
         }
 
-        // Generera ett användar ID
+        // The user id, which is the variable user from main.py
         let userID = "{{user}}";
-        // Connecta till vår websocket-server
+        // Connects to our websocket-server
         let websocket = new WebSocket("ws://127.0.0.1:5678/");
 
-        // När vi connectat (onopen) så skickar vi iväg att vi joinat
+        // When we have connected (onopen) then we send that we have joined
         websocket.onopen = function (event) {
             let data = { action: "joined", userID: userID };
             console.log("[Websocket]: joined", data)
@@ -126,17 +117,11 @@
             sendUserPosition(websocket, userID)
         };
 
-        // När vi tar emot ett meddelande från servern
+        // When we receive a message from the server
         websocket.onmessage = function (event) {
             let data = JSON.parse(event.data);
             console.log("[Websocket]: received data", data);
 
-            // Nu kan vi bestämma hur vi ska hantera olika meddelande,
-            // ett vanligt sätt är att ange en `typ` eller `action` för 
-            // varje meddelande så vi kan delegera baserat på vad som ska
-            // göras
-
-            // Baserat på `action` så gör vi olika saker
             if (data.action == "message") {
                 receivedMessage(data);
             } else if (data.action == "joined") {
@@ -149,7 +134,7 @@
 
         };
 
-        // När vi klickar på skicka knappen
+        // When we press the send button
         document.getElementById("send").addEventListener("click", function () {
             let msg = document.getElementById("chatbox").value;
             document.getElementById("chatbox").value = "";
@@ -164,9 +149,8 @@
             websocket.send(JSON.stringify(data));
         });
 
-        // Innan användare stänger sitt fönster (onbeforeunload) så
-        // skickar vi iväg att dom lämnar och sedan stänger vi vår
-        // connection till websocket servern
+        // Before the user closes their window (onbeforeunload) så
+        // we send that they have left and disconnects from our websocket server
         window.onbeforeunload = function () {
             let data = { action: "leave", userID: userID };
             console.log("[Websocket]: closing", data)
@@ -194,7 +178,7 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/static/javascript.js"></script>
+    <script src="/static/main.js"></script>
 </body>
 
 </html>

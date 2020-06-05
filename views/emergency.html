@@ -2,25 +2,25 @@
 <html lang="sv">
 
 <head>
-    <meta charset=utf-8>
+    <meta charset="utf-8">
     <title>Woman-Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="/static/style.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="/static/style.css" rel="stylesheet" type="text/css">
 </head>
 
-<body id="b_Nödrop">
+<body id="b_emergency">
     <ul id="slide-out" class="sidenav">
         <li>
             <div class="user-view">
                 <div class="background">
                 </div>
                 <!---<a href="#user"><img class="circle" src="images/yuna.jpg"></a> -->
-                <h3 id="hlogga">Woman Up</h3>
+                <h3 id="menu-title">Woman Up</h3>
                 <h4 id="user_menu">{{user}}</h4>
                 <a href="/startpage"><span class="black-text name">Hem</span></a>
             </div>
@@ -39,19 +39,19 @@
     <div class="box " id="box_emergancy">
 
         <h3><a href="/startpage">&larr; </a></h3>
-        <h2 id="Rubrik"> Nödrop </h2>
-        <p id=" Help1">
-            <button onclick="text1()" id="Hbutton">
+        <h2 id="heading"> Nödrop </h2>
+        <p id="Help1">
+            <button onclick="text1()" id="Hbutton1">
                 Hejsan! Ska hem nu, hade du kunnat följa mig?
             </button>
         </p>
         <p id="Help2">
-            <button onclick="text2()" id="Hbutton">
+            <button onclick="text2()" id="Hbutton2">
                 Jag är i fara hjälp mig!
             </button>
         </p>
         <p id="Help3">
-            <button onclick="text3()" id="Hbutton">
+            <button onclick="text3()" id="Hbutton3">
                 Någon förföljer mig. Kan du hjälpa mig?
             </button>
         </p>
@@ -60,12 +60,12 @@
                 <input type="text" class="form-control" id="pos" name="pos" required>
                 <textarea rows="4" cols="50" id="Truta" class="form-control" name="Truta" required></textarea>
             </p>
-                <input type="submit" value="Skicka" id="Send">
+            <input type="submit" value="Skicka" id="Send">
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="/static/javascript.js"></script>
+    <script src="/static/main.js"></script>
     <script src="/static/emergency.js"></script>
 </body>
 

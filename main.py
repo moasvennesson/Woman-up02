@@ -1,5 +1,5 @@
 from bottle import route, run, template, request, redirect, error, static_file, TEMPLATE_PATH, get, post, hook, app
-from bottle.ext import beaker # Import session beaker
+from bottle.ext import beaker
 from datetime import datetime, date
 import sqlite3
 import os
@@ -12,7 +12,7 @@ abs_static_path = os.path.join(abs_app_dir_path, "static")
 TEMPLATE_PATH.insert(0, abs_views_path)
 
 
-# Settings for the session
+
 session_opts = {
     "session.type": "file",
     "session.cookie_expires": True,
@@ -21,11 +21,9 @@ session_opts = {
 }
 
 
-# Activate sessions for the app
 app = beaker.middleware.SessionMiddleware(app(), session_opts)
 
 
-# Added hook for easier access to session
 @hook("before_request")
 def setup_request():
     request.session = request.environ["beaker.session"]
@@ -38,6 +36,7 @@ def server_static(filename):
 
 @route("/startpage")
 def startpage():
+    '''The startpage, checks if the user is logged in to the session. Then fetches the first name from the database of the user.'''
     if "logged-in" in request.session:
         if request.session["logged-in"] == True:
             email = request.session["email"]
@@ -45,14 +44,14 @@ def startpage():
             c = conn.cursor()
             c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
-            uid=str(user).strip("(,')")
-            return template("startpage", user = uid)
-            
+            uid = str(user).strip("(,')")
+            return template("startpage", user=uid)
+
     else:
         redirect("/")
 
 
-@route("/", method=["POST", "GET"]) 
+@route("/", method=["POST", "GET"])
 def login():
     '''The login page, checks if the e-mail and password in the html form is in the sqlite database'''
     msg = ""
@@ -61,8 +60,9 @@ def login():
         password = getattr(request.forms, "password")
         conn = sqlite3.connect("woman-up.db")
         c = conn.cursor()
-        c.execute("SELECT * FROM user WHERE email = ? and password = ?",(email, password))
-        user = c.fetchone() 
+        c.execute(
+            "SELECT * FROM user WHERE email = ? and password = ?", (email, password))
+        user = c.fetchone()
         if user:
             # Save logged in user in session
             request.session["logged-in"] = True
@@ -70,7 +70,7 @@ def login():
             inloggad = email
             print(inloggad)
 
-            redirect("/startpage") 
+            redirect("/startpage")
         else:
             msg = "Inkorrekt email eller lösenord"
 
@@ -88,7 +88,7 @@ def logout():
 def register():
     '''Registers a new user in the database and also checks if the e-mail is already in use'''
     msg = ""
-    if request.method =="POST":
+    if request.method == "POST":
         firstname = getattr(request.forms, "firstname")
         lastname = getattr(request.forms, "lastname")
         password = getattr(request.forms, "password")
@@ -101,7 +101,8 @@ def register():
         elif not password or not email:
             msg = "Vänligen uppge all uppgifter"
         else:
-            c.execute("INSERT INTO user VALUES(?,?,?,?)",(firstname, lastname, password, email,))
+            c.execute("INSERT INTO user VALUES(?,?,?,?)",
+                      (firstname, lastname, password, email,))
             conn.commit()
             redirect("/updateaccount")
 
@@ -115,8 +116,9 @@ def updateaccount():
 
 @route("/settings", method=["POST", "GET"])
 def settings():
+    '''The user can change their password in the database.'''
     msg = ""
-    success_msg =""
+    success_msg = ""
     if "logged-in" in request.session:
         if request.session["logged-in"] == True:
             email = request.session["email"]
@@ -124,23 +126,24 @@ def settings():
             c = conn.cursor()
             c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
-            uid=str(user).strip("(,')")
+            uid = str(user).strip("(,')")
             if request.method == "POST":
                 password = getattr(request.forms, "password")
                 new_password = getattr(request.forms, "new_password")
-                c.execute("SELECT * FROM user WHERE email = ? and password = ?",(email, password))
+                c.execute(
+                    "SELECT * FROM user WHERE email = ? and password = ?", (email, password))
                 found_user = c.fetchone()
                 if found_user:
                     sql_update_query = """Update user set password = ? where email = ?"""
                     data = (new_password, email)
-                    c.execute(sql_update_query,data)
+                    c.execute(sql_update_query, data)
                     conn.commit()
                     success_msg = "Lyckades byta lösenord"
                     c.close()
                 else:
-                    msg = "Fel lösenord"
-       
-        return template("settings", msg=msg, user=uid,success_msg=success_msg)
+                    msg = "Inkorrekt lösenord"
+
+        return template("settings", msg=msg, user=uid, success_msg=success_msg)
 
     else:
         redirect("/")
@@ -152,7 +155,7 @@ def popup():
 
 
 @route("/map", method=["POST", "GET"])
-def map(): 
+def map():
     global Listarop
     if "logged-in" in request.session:
         if request.session["logged-in"] == True:
@@ -161,12 +164,13 @@ def map():
             c = conn.cursor()
             c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
-            uid=str(user).strip("(,')")
+            uid = str(user).strip("(,')")
             print(uid)
             print(Listarop)
-            return template("map",Listarop=Listarop, user = uid)
+            return template("map", Listarop=Listarop, user=uid)
     else:
         redirect("/")
+
 
 Listarop = []
 
@@ -181,8 +185,9 @@ def remove_emergency():
             redirect("/map")
 
 
-@route("/emergency",method=["POST", "GET"])
+@route("/emergency", method=["POST", "GET"])
 def emergency():
+    '''Saves the user emergency message in the global list 'Listarop'.'''
     global Listarop
     if "logged-in" in request.session:
         if request.session["logged-in"] == True:
@@ -191,16 +196,16 @@ def emergency():
             c = conn.cursor()
             c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
-            uid=str(user).strip("(,')")
+            uid = str(user).strip("(,')")
             if request.method == "POST":
-                Etext=getattr(request.forms, "Truta")
+                Etext = getattr(request.forms, "Truta")
                 datum = datetime.datetime.now()
                 pos = getattr(request.forms, "pos")
-                listan = [Etext,uid,datum,pos]
+                listan = [Etext, uid, datum, pos]
                 Listarop.append(listan)
                 redirect("/map")
-            return template("emergency", email = email, user = uid,)
-    
+            return template("emergency", email=email, user=uid,)
+
     else:
         redirect("/")
 
@@ -214,9 +219,9 @@ def hamburgare():
             c = conn.cursor()
             c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
-            uid=str(user).strip("(,')")
-            return template("external-links", user = uid)
-            
+            uid = str(user).strip("(,')")
+            return template("external-links", user=uid)
+
     else:
         redirect("/")
 
@@ -230,12 +235,12 @@ def PrivacyPolicy():
             c = conn.cursor()
             c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
-            uid=str(user).strip("(,')")
-            return template("PrivacyPolicy", user = uid)
-        
+            uid = str(user).strip("(,')")
+            return template("PrivacyPolicy", user=uid)
+
     else:
         redirect("/")
-    
+
 
 @route("/FAQ")
 def FAQ():
@@ -246,15 +251,15 @@ def FAQ():
             c = conn.cursor()
             c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
-            uid=str(user).strip("(,')")
-            return template("FAQ", user = uid)
-            
+            uid = str(user).strip("(,')")
+            return template("FAQ", user=uid)
+
     else:
         redirect("/")
-    
 
-@route("/chatt")
-def chatt():
+
+@route("/chat")
+def chat():
     if "logged-in" in request.session:
         if request.session["logged-in"] == True:
             email = request.session["email"]
@@ -262,10 +267,11 @@ def chatt():
             c = conn.cursor()
             c.execute("SELECT first_name FROM user WHERE email = ?", (email,))
             user = c.fetchone()
-            uid=str(user).strip("(,')")
-            return template("chatt", user = uid, email = email)
+            uid = str(user).strip("(,')")
+            return template("chat", user=uid, email=email)
     else:
         redirect("/")
 
 
-run(app=app, host='localhost', port=9091, debug=True, reloader=True) # Updated according to documentation with 'app=app'
+# Updated according to documentation with 'app=app'
+run(app=app, host="localhost", port=8082, debug=True, reloader=True)

@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="/static/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
     <title>Woman-Up</title>
 </head>
 
-<body id="register_page">
+<body id="register-page">
     <h3><a href="/">&larr;</a></h3>
-    <div id="wrapper" class="placering">
-        <form action="/register" method="POST" id="registering">
+    <div id="wrapper" class="placement">
+        <form action="/register" method="POST" id="register">
             <h1>Skapa en profil</h1>
             <div class="form-row">
                 <div class="col-md-4 mb-3">
@@ -30,9 +30,9 @@
             <h2>Födelsedatum</h2>
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
-                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required>
-                        <option selected>År</option>
+                    <label class="mr-sm-2 sr-only" for="year">År</label>
+                    <select class="custom-select mr-sm-2" id="year" required>
+                        <option value="">År</option>
                         <option value="1">1990</option>
                         <option value="2">1991</option>
                         <option value="3">1992</option>
@@ -57,9 +57,9 @@
                     </select>
                 </div>
                 <div class="col-auto my-1">
-                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required>
-                        <option selected>Månad</option>
+                    <label class="mr-sm-2 sr-only" for="month">Månad</label>
+                    <select class="custom-select mr-sm-2" id="month" required>
+                        <option value="">Månad</option>
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
                         <option value="3">Mars</option>
@@ -75,9 +75,9 @@
                     </select>
                 </div>
                 <div class="col-auto my-1">
-                    <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required>
-                        <option selected>Dag</option>
+                    <label class="mr-sm-2 sr-only" for="day">Dag</label>
+                    <select class="custom-select mr-sm-2" id="day" required>
+                        <option value="">Dag</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -115,14 +115,14 @@
             <div class="form-row">
                 <div class="col-md-4 mb-3">
                     <label for="password">Lösenord</label>
-                    <input pattern=".{8,}" type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelpBlock"
-                        required>
+                    <input pattern=".{8,}" type="password" class="form-control" id="password" name="password"
+                        aria-describedby="passwordHelpBlock" required>
                     <small id="passwordHelpBlock" class="form-text text-muted">
                         Din lösenord måste minst vara 8 karaktärer långt.
                     </small>
-                    <label for="confirmpasword">Bekräfta lösenord</label>
-                    <input type="password" id="confirmPassword" class="form-control" name="confirmpassword" aria-describedby="passwordHelpBlock"
-                    required>
+                    <label for="confirmPassword">Bekräfta lösenord</label>
+                    <input pattern=".{8,}" type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                        aria-describedby="passwordHelpBlock" required>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="email">Email</label>
@@ -130,19 +130,20 @@
                     <small id="emailHelp" class="form-text text-muted">Vi delar inte din email med någon.</small>
                 </div>
             </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="user_terms" required>
-                    <label class="form-check-label" for="invalidCheck2">
-                        <a href="/FullPrivacyPolicy" onclick="window.open(this.href, 'mywin',
-                            'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" >Acceptera användarvillkor</a>
-                    </label>
-                </div>
-            <input type="submit" value="Register" id="btnSubmit">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="user_terms" required>
+                <label class="form-check-label">
+                    <a href="/FullPrivacyPolicy" onclick="window.open(this.href, 'mywin',
+                            'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">Acceptera
+                        användarvillkor</a>
+                </label>
+            </div>
+            <input type="submit" value="Registrera" id="btnSubmit">
             <p id="error">{{msg}}</p>
 
         </form>
     </div>
-    <img src="/static/logga.jpg" id="mini-logga" alt="logga">
+    <img src="/static/logga.jpg" id="mini-logo" alt="logo">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -152,8 +153,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
         $(function () {
             $("#btnSubmit").click(function () {
                 var password = $("#password").val();
@@ -163,9 +164,9 @@
                     return false;
                 }
                 return true;
-                });
             });
-        </script>
+        });
+    </script>
 </body>
 
 </html>
