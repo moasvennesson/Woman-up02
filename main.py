@@ -274,4 +274,4 @@ def chat():
 
 
 # Updated according to documentation with 'app=app'
-run(app=app, host="localhost", port=8082, debug=True, reloader=True)
+run(app=app, host="localhost", port=8080, debug=True, reloader=True)
