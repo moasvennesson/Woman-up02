@@ -6,6 +6,9 @@ Emelie
 Kristin 
 Emil
 
+Länk till vår repository
+https://github.com/moasvennesson/Woman-up02
+
 Innan ni starta programmet se till att ni har Bottle installerat.
 http://bottlepy.org/docs/stable/
 
