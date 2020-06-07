@@ -273,5 +273,4 @@ def chat():
         redirect("/")
 
 
-# Updated according to documentation with 'app=app'
 run(app=app, host="localhost", port=8080, debug=True, reloader=True)
