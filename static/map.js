@@ -1,6 +1,5 @@
-//skriver ut postion variablen
+//prints the variabel position
 var x = document.getElementById("your-location"), latitude,  longitude, accruacy;
-//används till att ge färger till vännerna.
 var Colors = ["Red","Orange","Yellow","Cyan","Blue","Purple","Pink","White","Gray","Brown"];
 function getLocation() {
   if (navigator.geolocation) {
@@ -12,19 +11,17 @@ function getLocation() {
 
 var mymap
 function showPosition(position) {
-  //sparar din plats i var latitude, longityde och accruacy
+  //saves your location i var latitude, longitude and accuracy
   latitude = position.coords.latitude;
   longitude = position.coords.longitude;
   accruacy = position.coords.accuracy; 
-  //skriver till var x
-  //x.innerHTML = latitude + " " + longitude + " accruacy: inom "+ accruacy + "m från din riktiga position";
   getMap();
 }
 
 function getMap(){
-    //kart objektet
+    //map object
     mymap = L.map('mapid').setView([latitude, longitude], 13);
-    //Genererar en karta layer
+    //Generates a map layer
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -35,7 +32,7 @@ function getMap(){
         zoomOffset: -1
     }).addTo(mymap);
    L.marker([latitude,longitude]).addTo(mymap).bindPopup("<b>Din plats </b>").openPopup();
-    //L.marker ger en pin på platsen (på din plats)
+    //L.marker gives a pin the position (your position)
     var circle = L.circle([latitude, longitude], {
         color: 'green',
         fillColor: 'green',
@@ -45,15 +42,14 @@ function getMap(){
    
  
  
-    getDatabaseFriendsOnMap(mymap);
+    addEmergencyMessageOnMap(mymap);
 }
  
-//lägger till vänner på kartan
-function getFriendsMap(NamnF,pos,text,date,mymap){
+//adds the emergency message to the map
+function addEmergencyMap(NamnF,pos,text,date,mymap){
   for (i = 0; i < NamnF.length-1; i++) {
       a = i*3;
       if(NamnF[i] != null &&  pos!= null){
-      // använder Colors array för att ge färg till Personer L.marker ger en pin på platsen
         L.marker([pos[a],pos[(a+1)]]).addTo(mymap).bindPopup("<b>"+NamnF[i]+"</b> " +text + "datum " + date);
         var circle = L.circle([poslat[i], poslon[i]], {
             color: 'Blue',
@@ -67,24 +63,14 @@ function getFriendsMap(NamnF,pos,text,date,mymap){
 
 }
  
-//skriv ut de som är på karta
- function printKarta(){
-    var printContents = document.getElementById("mapid").innerHTML;
-    var originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
- 
-}
-//Hämtar alla värden och lägger en pin på de
-function getDatabaseFriendsOnMap(mymap){
+
+//Collects the message from emergency and adds it to a pin
+function addEmergencyMessageOnMap(mymap){
     var stringtoarray;
     var NamnF = [];
     var poslat= [];
     var poslon= [];
     var Offset= [];
-    //Hämtar input från databasen
-    //Formatet måste , mellan varje
     stringtoarray = document.getElementById("SendName").innerHTML;
     NamnF = stringtoarray.split(";");
     stringtoarray = document.getElementById("Pos").innerHTML;
@@ -93,9 +79,7 @@ function getDatabaseFriendsOnMap(mymap){
     text = stringtoarray.split(";");
     stringtoarray = document.getElementById("date").innerHTML;
     date = stringtoarray.split(";");
-    ////////////////////////////////////////////////////////////////
-    // 3 arrayer latitud longitud Namn
-    getFriendsMap(NamnF,pos,text,date,mymap);
+    addEmergencyMap(NamnF,pos,text,date,mymap);
  
 }
 
